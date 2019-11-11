@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container">
+  <div>
     <header>
       <AppHeader></AppHeader>
     </header>
@@ -10,13 +10,10 @@
       <main class="col-ls-10">
         <AppSelection selection="selectedID" />
       </main>
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        With Bootstrap!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
     </div>
+    <footer>
+      <app-footer></app-footer>
+    </footer>
   </div>
 </template>
 
@@ -24,6 +21,7 @@
 import AppSelection from "./components/Selection.vue";
 import AppHeader from "./components/Header.vue";
 import AppNav from "./components/Navigation.vue";
+import AppFooter from "./components/Footer.vue";
 
 export default {
   name: "app",
@@ -33,21 +31,17 @@ export default {
   components: {
     AppSelection,
     AppHeader,
-    AppNav
+    AppNav,
+    AppFooter
   }
 };
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin: 0%;
-}
-main {
-  text-align: center;
+footer {
+  position: fixed;
+  bottom: 0%;
+  display: block;
+  margin: auto;
 }
 </style>
