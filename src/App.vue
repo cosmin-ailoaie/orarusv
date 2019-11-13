@@ -1,4 +1,5 @@
 <template>
+<<<<<<< Updated upstream
   <div id="app" class="container">
     <header>
       <AppHeader></AppHeader>
@@ -7,6 +8,16 @@
       <nav class="col-ls-2">
         <AppNav></AppNav>
       </nav>
+=======
+  <div class="wrapper">
+    <div class="sidebar">
+      <AppNav></AppNav>
+    </div>
+    <div>
+      <!-- <header class="h">
+        <AppHeader></AppHeader>
+      </header>-->
+>>>>>>> Stashed changes
       <main class="col-ls-10">
         <AppSelection selection="selectedID" />
       </main>
@@ -22,7 +33,7 @@
 
 <script>
 import AppSelection from "./components/Selection.vue";
-import AppHeader from "./components/Header.vue";
+// import AppHeader from "./components/Header.vue";
 import AppNav from "./components/Navigation.vue";
 
 export default {
@@ -32,13 +43,20 @@ export default {
   },
   components: {
     AppSelection,
+<<<<<<< Updated upstream
     AppHeader,
     AppNav
+=======
+    // AppHeader,
+    AppNav,
+    AppFooter
+>>>>>>> Stashed changes
   }
 };
 </script>
 
 <style>
+<<<<<<< Updated upstream
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -49,5 +67,21 @@ export default {
 }
 main {
   text-align: center;
+=======
+.wrapper {
+  display: flex;
+  position: relative;
+}
+.h {
+  position: fixed;
+  width: 100%;
+  height: auto;
+}
+footer {
+  position: fixed;
+  bottom: 0%;
+  display: block;
+  margin: auto;
+>>>>>>> Stashed changes
 }
 </style>

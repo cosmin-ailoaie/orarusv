@@ -15,6 +15,7 @@ div {
   padding: 15px;
 }
 h1 {
+<<<<<<< Updated upstream
   display: inline;
   margin-left: 10%;
   position: absolute;
@@ -31,5 +32,14 @@ h1 {
   div {
     padding: 0px;
   }
+=======
+  color: white;
+}
+img {
+  display: block;
+  margin: auto;
+  height: 70px;
+  width: 230px;
+>>>>>>> Stashed changes
 }
 </style>
