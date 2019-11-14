@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h2>{{selection}}</h2>
+      <h2>{{getSelectedOption}}</h2>
     </div>
     <div>
       <select name="specialization" class="test">
@@ -22,11 +22,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "selection",
   props: {
     selection: String
   },
+  computed: mapGetters(["getSelectedOption"]),
   data() {
     return {
       selectedID: Number,
@@ -119,5 +121,8 @@ export default {
 .test {
   width: 400px;
   margin: 10px;
+}
+h2 {
+  color: white;
 }
 </style>

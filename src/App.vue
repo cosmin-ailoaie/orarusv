@@ -4,12 +4,11 @@
       <AppNav></AppNav>
     </div>
     <div>
-      <!-- <header class="h">
-        <AppHeader></AppHeader>
-      </header>-->
-      <main class="col-ls-10">
-        <AppSelection selection="selectedID" />
-      </main>
+      <div class="main">
+        <main class="main-section">
+          <AppSelection />
+        </main>
+      </div>
     </div>
   </div>
 </template>
@@ -21,9 +20,8 @@ import AppNav from "./components/Navigation.vue";
 // import AppFooter from './components/Footer.vue'
 export default {
   name: "app",
-  data() {
-    // selectedID: 2;
-  },
+
+  // data() {},
   components: {
     AppSelection,
     // AppHeader,
@@ -42,6 +40,22 @@ export default {
   position: fixed;
   width: 100%;
   height: auto;
+}
+.main {
+  width: 100%;
+  margin-left: 270px;
+}
+.main-section {
+}
+@media screen and (max-width: 768px) {
+  .main {
+    margin-top: 140px;
+    margin-left: 0%;
+    height: 100%;
+    justify-items: center;
+  }
+  .main-section {
+  }
 }
 footer {
   position: fixed;

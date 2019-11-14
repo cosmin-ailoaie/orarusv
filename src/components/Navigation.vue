@@ -15,9 +15,9 @@
     </a>
     <ul>
       <li
-        v-for="(option) in options"
+        v-for="(option) in getOptions"
         :key="option.id"
-        v-on:click="selectSpec(option.id)"
+        v-on:click="selectOption(option.id)"
       >{{option.title}}</li>
       <li class="selected">Test selected</li>
     </ul>
@@ -25,38 +25,19 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 export default {
+  computed: mapGetters(["getOptions"]),
   data() {
     return {
-      values: 0,
-      toggleMenu: false,
-      options: [
-        {
-          id: 0,
-          title: "Studenti"
-        },
-        {
-          id: 1,
-          title: "Profesori"
-        },
-        {
-          id: 2,
-          title: "Sali"
-        },
-        {
-          id: 3,
-          title: "Facultati"
-        },
-        {
-          id: 4,
-          title: "Despre"
-        }
-      ]
+      toggleMenu: false
     };
   },
   methods: {
-    selectSpec(value) {
-      this.values = value;
+    ...mapActions(["setSelectedOption"]),
+    selectOption(id) {
+      this.setSelectedOption(id);
     },
     toggle() {
       this.toggleMenu = !this.toggleMenu;
@@ -78,9 +59,10 @@ img {
   position: fixed;
   width: 270px;
   height: 100%;
-  background-color: #4e86e6;
+  background-color: rgb(19, 63, 138);
   /* background-color: #; */
   padding: 20px 0;
+  justify-content: initial;
 }
 ul li {
   display: block;
@@ -94,11 +76,10 @@ ul li {
   cursor: pointer;
 }
 ul li:hover {
-  background-color: #032f7a;
+  background-color: rgb(3, 47, 122);
 }
 .selected {
-  /* background-color: #1758c7; */
-  background-color: #1d5ac5;
+  background-color: rgb(24, 73, 161);
 }
 .icon {
   display: none;
