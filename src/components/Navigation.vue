@@ -10,7 +10,7 @@
   </div>-->
   <div class="sidebar" v-bind:class="{responsive:toggleMenu}">
     <img src="../assets/usv_logo.png" />
-    <a v-on:click="toggle" class="icon">
+    <a v-on:click="toggle" class="icon" scaley>
       <i class="fa fa-bars"></i>
     </a>
     <ul>
@@ -18,8 +18,8 @@
         v-for="(option) in getOptions"
         :key="option.id"
         v-on:click="selectOption(option.id)"
+        v-bind:class="{selected: option.title == getSelectedOption}"
       >{{option.title}}</li>
-      <li class="selected">Test selected</li>
     </ul>
   </div>
 </template>
@@ -28,7 +28,7 @@
 import { mapActions } from "vuex";
 import { mapGetters } from "vuex";
 export default {
-  computed: mapGetters(["getOptions"]),
+  computed: mapGetters(["getOptions", "getSelectedOption"]),
   data() {
     return {
       toggleMenu: false
@@ -38,6 +38,7 @@ export default {
     ...mapActions(["setSelectedOption"]),
     selectOption(id) {
       this.setSelectedOption(id);
+      this.toggle();
     },
     toggle() {
       this.toggleMenu = !this.toggleMenu;
@@ -56,9 +57,10 @@ img {
   width: 230px;
 }
 .wrapper .sidebar {
+  transition: all 0.4s ease;
   position: fixed;
   width: 270px;
-  height: 100%;
+  height: 100vh;
   background-color: rgb(19, 63, 138);
   /* background-color: #; */
   padding: 20px 0;
@@ -66,7 +68,6 @@ img {
 }
 ul li {
   display: block;
-  /* margin: 10px; */
   height: 50px;
   line-height: 50px;
   text-align: center;
@@ -76,41 +77,57 @@ ul li {
   cursor: pointer;
 }
 ul li:hover {
-  background-color: rgb(3, 47, 122);
+  background-color: rgb(24, 73, 161);
 }
 .selected {
-  background-color: rgb(24, 73, 161);
+  background-color: rgb(3, 47, 122);
 }
 .icon {
   display: none;
 }
 @media screen and (max-width: 768px) {
   .sidebar {
-    height: 15% !important;
+    max-height: 12% !important;
     width: 100% !important;
+    transition: all 1s ease;
   }
-  ul li {
+  ul {
+    margin-top: 5px;
+  }
+  li {
+    /* transition: all 1s ease-out; */
     display: none;
+    opacity: 0;
   }
   .icon {
     float: right;
     display: block;
-    position: absolute;
+    position: fixed;
     font-size: 30px;
-    top: 30%;
+    top: 4%;
     right: 5%;
   }
 }
 @media screen and (max-width: 768px) {
-  /* .sidebar.responsive {
-    position: relative;
-    height: 100%;
+  .sidebar.responsive ul {
+    /* border-top: 5px solid black; */
+  }
+  /* .sidebar.responsive .icon {
+    top: 18%;
+    transition: none;
   } */
+  .responsive img {
+    margin-bottom: 5%;
+  }
+  .sidebar.responsive {
+    max-height: 375px !important;
+    /* transform: scaleY(1); */
+  }
   .responsive ul li {
     position: relative;
-    float: none;
     display: block;
-    text-align: left;
+    text-align: center;
+    opacity: 1;
     /* background-color: red; */
   }
 }
