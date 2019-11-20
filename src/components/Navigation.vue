@@ -8,7 +8,7 @@
       >{{option.title}}</button>
     </ul>
   </div>-->
-  <div class="sidebar" v-bind:class="{responsive:toggleMenu}">
+  <div class="sidebar" v-bind:class="{toggleView:toggleMenu}">
     <img src="../assets/usv_logo.png" />
     <a v-on:click="toggle" class="icon" scaley>
       <i class="fa fa-bars"></i>
@@ -31,7 +31,8 @@ export default {
   computed: mapGetters(["getOptions", "getSelectedOption"]),
   data() {
     return {
-      toggleMenu: false
+      toggleMenu: false,
+      showOn: false
     };
   },
   methods: {
@@ -57,7 +58,7 @@ img {
   width: 230px;
 }
 .wrapper .sidebar {
-  transition: all 0.4s ease;
+  /* transition: all 0.4s ease; */
   position: fixed;
   width: 270px;
   height: 100vh;
@@ -75,9 +76,11 @@ ul li {
   /* border: 2px solid black; */
   color: white;
   cursor: pointer;
+  /* transition: all 2 ease-out; */
 }
 ul li:hover {
   background-color: rgb(24, 73, 161);
+  /* background-color: red; */
 }
 .selected {
   background-color: rgb(3, 47, 122);
@@ -85,18 +88,18 @@ ul li:hover {
 .icon {
   display: none;
 }
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .sidebar {
     max-height: 12% !important;
     width: 100% !important;
     transition: all 1s ease;
   }
   ul {
+    display: none;
     margin-top: 5px;
   }
   li {
     /* transition: all 1s ease-out; */
-    display: none;
     opacity: 0;
   }
   .icon {
@@ -108,22 +111,24 @@ ul li:hover {
     right: 5%;
   }
 }
-@media screen and (max-width: 768px) {
-  .sidebar.responsive ul {
+@media (max-width: 768px) {
+  .sidebar.toggleView ul {
     /* border-top: 5px solid black; */
+    transition: all 1s ease;
+    display: block;
   }
-  /* .sidebar.responsive .icon {
+  /* .sidebar.toggleView .icon {
     top: 18%;
     transition: none;
   } */
-  .responsive img {
+  .toggleView img {
     margin-bottom: 5%;
   }
-  .sidebar.responsive {
+  .sidebar.toggleView {
     max-height: 375px !important;
     /* transform: scaleY(1); */
   }
-  .responsive ul li {
+  .toggleView ul li {
     position: relative;
     display: block;
     text-align: center;
