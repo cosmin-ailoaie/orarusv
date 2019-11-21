@@ -1,15 +1,6 @@
 <template>
-  <!-- <div>
-    <ul>
-      <button
-        v-for="(option) in options"
-        :key="option.id"
-        v-on:click="selectSpec(option.id)"
-      >{{option.title}}</button>
-    </ul>
-  </div>-->
   <div class="sidebar" v-bind:class="{responsive:toggleMenu}">
-    <img src="../assets/usv_logo.png" />
+    <img />
     <a v-on:click="toggle" class="icon" scaley>
       <i class="fa fa-bars"></i>
     </a>
@@ -49,78 +40,58 @@ export default {
 
 <style scoped>
 img {
+  content: url("../assets/usv_logo_full.png");
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 50%;
-  height: 70px;
-  width: 230px;
-}
-.wrapper .sidebar {
-  transition: all 0.4s ease;
-  position: fixed;
-  width: 270px;
-  height: 100vh;
-  background-color: rgb(19, 63, 138);
-  /* background-color: #; */
-  padding: 20px 0;
-  justify-content: initial;
-}
-ul li {
-  display: block;
-  height: 50px;
-  line-height: 50px;
-  text-align: center;
-  text-justify: auto;
-  /* border: 2px solid black; */
-  color: white;
-  cursor: pointer;
-}
-ul li:hover {
-  background-color: rgb(24, 73, 161);
-}
-.selected {
-  background-color: rgb(3, 47, 122);
+  margin-bottom: 30%;
+  padding-top: 20px;
 }
 .icon {
   display: none;
 }
-@media screen and (max-width: 768px) {
-  .sidebar {
-    max-height: 12% !important;
-    width: 100% !important;
-    transition: all 1s ease;
+@media (max-width: 992px) {
+  img {
+    content: url("../assets/usv_logo_mini.png");
+    padding-top: 20px;
+  }
+}
+@media (max-width: 768px) {
+  img {
+    content: url("../assets/usv_logo_full.png");
+    padding: 20px 0 20px 0;
   }
   ul {
-    margin-top: 5px;
-  }
-  li {
     /* transition: all 1s ease-out; */
     display: none;
-    opacity: 0;
   }
   .icon {
     float: right;
     display: block;
     position: fixed;
     font-size: 30px;
-    top: 4%;
+    top: 3%;
     right: 5%;
   }
 }
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
   .sidebar.responsive ul {
     /* border-top: 5px solid black; */
+    /* transition: all 1s ease; */
+    display: block;
+    background-color: rgb(19, 63, 138);
   }
-  /* .sidebar.responsive .icon {
-    top: 18%;
-    transition: none;
-  } */
+  .responsive li:hover {
+    background-color: rgb(24, 73, 161);
+  }
+  .responsive .selected {
+    background-color: rgb(3, 47, 122);
+  }
   .responsive img {
-    margin-bottom: 5%;
+    margin-bottom: 0%;
   }
   .sidebar.responsive {
-    max-height: 375px !important;
+    /* max-height: 375px !important; */
     /* transform: scaleY(1); */
   }
   .responsive ul li {
@@ -128,8 +99,30 @@ ul li:hover {
     display: block;
     text-align: center;
     opacity: 1;
-    /* background-color: red; */
+    background-color: rgb(19, 63, 138);
   }
+}
+
+/* .wrapper .sidebar {
+  background-color: rgb(19, 63, 138);
+  background-color: #; 
+  padding: 20px 0;
+  justify-content: initial;
+} */
+ul li {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  text-justify: auto;
+  color: white;
+  cursor: pointer;
+}
+li:hover {
+  background-color: rgb(24, 73, 161);
+}
+.selected {
+  background-color: rgb(3, 47, 122);
 }
 </style>
 

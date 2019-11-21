@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="grid-container">
     <div class="sidebar">
       <AppNav></AppNav>
     </div>
@@ -35,35 +35,34 @@ export default {
 </script>
 
 <style>
-.wrapper {
-  display: flex;
-  position: relative;
+ul {
+  margin: -1x !important;
 }
-.h {
-  position: fixed;
+.grid-container {
+  /* transition: all 1s ease-out; */
+  display: grid;
+  grid-template-columns: 20% auto;
+  grid-template-rows: 100vh;
+}
+.sidebar {
+  background-color: rgb(19, 63, 138);
+  height: 100%;
   width: 100%;
-  height: auto;
+  max-width: 250px;
 }
-.main {
-  width: 100%;
-  margin-left: 270px;
-}
-.main-section {
-}
-@media screen and (max-width: 768px) {
-  .main {
-    margin-top: 140px;
-    margin-left: 0%;
-    height: 100%;
-    justify-items: center;
-  }
-  .main-section {
+@media (max-width: 992px) {
+  .grid-container {
+    grid-template-columns: 100px auto;
+    grid-template-rows: 100vh;
   }
 }
-footer {
-  position: fixed;
-  bottom: 0%;
-  display: block;
-  margin: auto;
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: auto;
+    grid-template-rows: 105px auto;
+  }
+  .sidebar {
+    max-width: none;
+  }
 }
 </style>
