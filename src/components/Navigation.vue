@@ -22,7 +22,8 @@ export default {
   computed: mapGetters(["getOptions", "getSelectedOption"]),
   data() {
     return {
-      toggleMenu: false
+      toggleMenu: false,
+      showOn: false
     };
   },
   methods: {
@@ -94,7 +95,7 @@ img {
     /* max-height: 375px !important; */
     /* transform: scaleY(1); */
   }
-  .responsive ul li {
+  .toggleView ul li {
     position: relative;
     display: block;
     text-align: center;
