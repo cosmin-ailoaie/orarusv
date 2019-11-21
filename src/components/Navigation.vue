@@ -65,6 +65,7 @@ img {
   ul {
     /* transition: all 1s ease-out; */
     display: none;
+    background-color: rgb(19, 63, 138);
   }
   .icon {
     float: right;
@@ -80,6 +81,7 @@ img {
     /* border-top: 5px solid black; */
     /* transition: all 1s ease; */
     display: block;
+    /* transition: all 1s ease-in; */
     background-color: rgb(19, 63, 138);
   }
   .responsive li:hover {
@@ -91,25 +93,20 @@ img {
   .responsive img {
     margin-bottom: 0%;
   }
-  .sidebar.responsive {
+  .responsive .toggleView {
     /* max-height: 375px !important; */
     /* transform: scaleY(1); */
   }
-  .toggleView ul li {
-    position: relative;
+  .responsive .toggleView ul li {
     display: block;
     text-align: center;
     opacity: 1;
     background-color: rgb(19, 63, 138);
   }
 }
-
-/* .wrapper .sidebar {
-  background-color: rgb(19, 63, 138);
-  background-color: #; 
-  padding: 20px 0;
-  justify-content: initial;
-} */
+ul {
+  position: relative;
+}
 ul li {
   display: block;
   height: 50px;

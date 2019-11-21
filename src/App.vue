@@ -36,7 +36,7 @@ export default {
 
 <style>
 ul {
-  margin: -1x !important;
+  margin: -1px !important;
 }
 .grid-container {
   /* transition: all 1s ease-out; */
