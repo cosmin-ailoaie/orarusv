@@ -45,7 +45,6 @@ img {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 30%;
   padding-top: 20px;
 }
 .icon {
