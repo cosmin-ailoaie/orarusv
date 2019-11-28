@@ -3,16 +3,16 @@
     <div class="sidebar">
       <AppNav></AppNav>
     </div>
-    <div>
-      <div class="main">
-        <main class="main-section">
-          <AppSelection />
-        </main>
-      </div>
+    <div class="main">
+      <main class="main-section">
+        <AppSelection />
+      </main>
     </div>
-    <footer>
-      <app-footer></app-footer>
-    </footer>
+    <div class="footer">
+      <footer>
+        <app-footer></app-footer>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -20,7 +20,7 @@
 import AppSelection from "./components/Selection.vue";
 // import AppHeader from "./components/Header.vue";
 import AppNav from "./components/Navigation.vue";
-// import AppFooter from './components/Footer.vue'
+import AppFooter from "./components/Footer.vue";
 export default {
   name: "app",
 
@@ -28,8 +28,8 @@ export default {
   components: {
     AppSelection,
     // AppHeader,
-    AppNav
-    // AppFooter
+    AppNav,
+    AppFooter
   }
 };
 </script>
@@ -49,6 +49,17 @@ ul {
   height: 100%;
   width: 100%;
   max-width: 250px;
+  position: relative;
+}
+.main {
+  display: flex;
+  justify-content: center;
+}
+.footer {
+  width: 100%;
+  position: absolute;
+  bottom: 0%;
+  display: none;
 }
 @media (max-width: 992px) {
   .grid-container {
@@ -58,11 +69,14 @@ ul {
 }
 @media (max-width: 768px) {
   .grid-container {
-    grid-template-columns: auto;
+    grid-template-columns: 100%;
     grid-template-rows: 105px auto;
   }
   .sidebar {
     max-width: none;
+  }
+  .footer {
+    display: block;
   }
 }
 </style>

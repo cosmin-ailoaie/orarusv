@@ -23,7 +23,7 @@ const state = {
       title: "Despre"
     }
   ],
-  selectedOption: ""
+  selectedOption: "Studenti"
 };
 const getters = {
   getOptions: state => state.options,

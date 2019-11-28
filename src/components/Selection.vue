@@ -1,21 +1,25 @@
 <template>
-  <div>
-    <div>
+  <div class="container">
+    <div class="selectionTitle">
       <h2>{{getSelectedOption}}</h2>
     </div>
-    <div>
-      <select name="faculties" v-on:change="onChange($event)" class="test" v-model="key">
+    <div class="container-selection"> 
+      <div class="faculties">
+      <select name="faculties" required v-on:change="onChange($event)" v-model="key">
+        <option value="" hidden>Selectati facultatea</option>
         <option
           v-for="(item, index) in faculties"
           :key="index"
         >{{item.name}}</option>
       </select>
-    </div>
-    <div>
-      <select class="test" name="specializations" size="6">
+      </div>
+    <div class="specs">
+      <select name="specializations" size="6">
         <option v-for="(item, index) in specializations" :key="index" value="item">{{item.fullName}}</option>
       </select>
     </div>
+    </div>
+    <a class="myButton">Afisati orarul</a>
   </div>
 </template>
 
@@ -58,11 +62,46 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.test {
-  width: 400px;
-  margin: 10px;
+.myButton {
+  text-align: center;
+	box-shadow:inset 0px 0px 0px 0px #54a3f7;
+	/* background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%); */
+	background-color:rgb(19, 63, 138);;
+	border-radius:5px;
+	/* border:1px solid #124d77; */
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff !important; /* TODO remove important and rezolve a:not */
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:8px 34px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #154682;
 }
-h2 {
+.myButton:hover {
+	/* background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%); */
+	background-color:rgb(24, 73, 161);
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+select{
+  width: 100%;
+  margin-bottom: 15px;
+}
+.container{
+  padding: 20px 50px;
+  align-content: center;
+  display: flex;
+    flex-direction: column;
+}
+.selectionTitle {
   color: white;
+  text-align: center;
+}
+.container-selection{
+
 }
 </style>

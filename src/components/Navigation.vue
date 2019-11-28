@@ -12,6 +12,10 @@
         v-bind:class="{selected: option.title == getSelectedOption}"
       >{{option.title}}</li>
     </ul>
+    <footer class="footer-nav">
+      <div class="full-copy">&copy; Copyright 2019 USV</div>
+      <div class="tiny-copy">&copy; USV</div>
+    </footer>
   </div>
 </template>
 
@@ -50,10 +54,27 @@ img {
 .icon {
   display: none;
 }
+.footer-nav {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 15px;
+}
+.tiny-copy {
+  display: none;
+}
 @media (max-width: 992px) {
   img {
     content: url("../assets/usv_logo_mini.png");
     padding-top: 20px;
+  }
+  .full-copy {
+    display: none;
+  }
+  .tiny-copy {
+    display: block;
   }
 }
 @media (max-width: 768px) {
@@ -74,12 +95,17 @@ img {
     top: 3%;
     right: 5%;
   }
+  .footer-nav {
+    display: none;
+  }
 }
 @media (max-width: 768px) {
   .sidebar.responsive ul {
     /* border-top: 5px solid black; */
     /* transition: all 1s ease; */
     display: block;
+    position: relative;
+    top: 0%;
     /* transition: all 1s ease-in; */
     background-color: rgb(19, 63, 138);
   }
@@ -104,7 +130,9 @@ img {
   }
 }
 ul {
-  position: relative;
+  position: absolute;
+  width: inherit;
+  top: 20%;
 }
 ul li {
   display: block;
