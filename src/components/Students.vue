@@ -92,10 +92,9 @@ select{
   margin-bottom: 15px;
 }
 .container{
-  padding: 20px 50px;
   align-content: center;
   display: flex;
-    flex-direction: column;
+  flex-direction: column;
 }
 .selectionTitle {
   color: white;

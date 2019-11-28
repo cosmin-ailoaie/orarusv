@@ -1,26 +1,31 @@
 // import axios from 'axios';
-
+import router from "../../router/index";
 const state = {
   options: [
     {
       id: 0,
-      title: "Studenti"
+      title: "Studenti",
+      route: "/"
     },
     {
       id: 1,
-      title: "Profesori"
+      title: "Profesori",
+      route: "/profesori"
     },
     {
       id: 2,
-      title: "Sali"
+      title: "Sali",
+      route: "/sali"
     },
     {
       id: 3,
-      title: "Facultati"
+      title: "Facultati",
+      route: "/facultati"
     },
     {
       id: 4,
-      title: "Despre"
+      title: "Despre",
+      route: "/despre"
     }
   ],
   selectedOption: "Studenti"
@@ -32,6 +37,7 @@ const getters = {
 const actions = {
   setSelectedOption({ commit }, option) {
     commit("setSelectedOption", state.options[option].title);
+    router.push(state.options[option].route);
   }
 };
 const mutations = {

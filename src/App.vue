@@ -5,7 +5,7 @@
     </div>
     <div class="main">
       <main class="main-section">
-        <AppSelection />
+        <router-view></router-view>
       </main>
     </div>
     <div class="footer">
@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import AppSelection from "./components/Selection.vue";
-// import AppHeader from "./components/Header.vue";
 import AppNav from "./components/Navigation.vue";
 import AppFooter from "./components/Footer.vue";
 export default {
@@ -26,8 +24,6 @@ export default {
 
   // data() {},
   components: {
-    AppSelection,
-    // AppHeader,
     AppNav,
     AppFooter
   }
@@ -54,6 +50,7 @@ ul {
 .main {
   display: flex;
   justify-content: center;
+  padding: 20px 50px;
 }
 .footer {
   width: 100%;
