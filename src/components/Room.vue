@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "NewsHolder"
+  name: "Rooms"
 };
 </script>
