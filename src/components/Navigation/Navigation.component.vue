@@ -41,15 +41,5 @@ export default class NavigationComponent extends Vue {
 }
 </script>
 <style lang="scss">
-#app .navigation-wrapper {
-  padding-top: 10px;
-  .fakeButton {
-    border-radius: 50px;
-    background-color: white;
-    font-weight: bolder;
-    font-size: 1.6rem;
-    color: black;
-    padding: 10px 50px;
-  }
-}
+@import '@/assets/scss/_navigation.scss';
 </style>

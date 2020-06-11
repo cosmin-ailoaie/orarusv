@@ -1,21 +1,48 @@
 @import './variables.scss';
-.navbar-usv {
-  width: 100%;
-  min-height: 100px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  background-color: $color-white;
-  -webkit-box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
-  -moz-box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
-  box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
-  .navbar {
-    padding: 0.5rem 1rem !important;
-    .navbar-brand {
-      width: 200px;
-      height: 60px;
-      img {
-        max-width: 100%;
-        height: auto;
+
+#app {
+  .navbar-usv {
+    width: 100%;
+    min-height: 100px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: $color-nav-bg;
+    -webkit-box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
+    -moz-box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
+    box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
+    .navbar {
+      padding: 0.5rem 1rem !important;
+      .nav-item {
+        font-size: 1.5rem;
+        &:hover {
+          font-weight: bold;
+          a {
+            color: $color-c1-blue !important;
+          }
+        }
+      }
+      .navbar-brand {
+        width: 200px;
+        height: 60px;
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+  .navigation-wrapper {
+    padding-top: 10px;
+    .fakeButton {
+      border-radius: 50px;
+      background-color: $color-white;
+      font-weight: bolder;
+      font-size: 1.6rem;
+      color: black;
+      padding: 10px 50px;
+      &:hover {
+        background-color: $color-c1-blue;
+        color: $color-white;
       }
     }
   }

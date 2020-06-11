@@ -10,6 +10,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
+        <hr />
         <b-navbar-nav class="ml-auto">
           <b-nav-item :to="ROUTES.HOME.path" exact>
             Studenti
@@ -42,15 +43,6 @@ export default class NavigationBarComponent extends Vue {
   constructor() {
     super();
   }
-  private LogoutAction() {
-    console.log('logout');
-  }
 }
 </script>
-<style lang="scss">
-.sidebar {
-  .icon {
-    background-color: red;
-  }
-}
-</style>
+<style lang="scss"></style>
