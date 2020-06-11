@@ -1,0 +1,22 @@
+@import './variables.scss';
+.navbar-usv {
+  width: 100%;
+  min-height: 100px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: $color-white;
+  -webkit-box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
+  -moz-box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
+  box-shadow: 0px 1px 40px 3px rgba(0, 0, 0, 0.58);
+  .navbar {
+    padding: 0.5rem 1rem !important;
+    .navbar-brand {
+      width: 200px;
+      height: 60px;
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+}

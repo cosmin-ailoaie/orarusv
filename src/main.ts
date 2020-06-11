@@ -5,7 +5,7 @@ import VueRouter from 'vue-router';
 import App from './App.vue';
 import BootstrapVue from 'bootstrap-vue';
 
-import router from './router/index';
+import router from './router';
 import store from './store';
 
 Vue.use(VueRouter);
@@ -17,5 +17,5 @@ Vue.use(BootstrapVue);
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: (h: any) => h(App),
 }).$mount('#app');

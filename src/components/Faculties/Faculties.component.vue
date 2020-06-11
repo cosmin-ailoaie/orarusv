@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>stiudens</h1>
+    <h1>fac</h1>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import { mapGetters } from 'vuex';
 
 // component setup
 @Component({ computed: mapGetters({}) })
-export default class StudentsComponent extends Vue {
+export default class FacultiesComponent extends Vue {
   // private
   // private readonly APP: {} = APP;
 

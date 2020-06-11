@@ -11,18 +11,4 @@ const router = new VueRouter({
   routes: [...ROUTES],
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record: any) => record.meta.requiresAdmin)) {
-    if (localStorage.getItem('isAdmin')) {
-      next();
-      return;
-    }
-    next('/404');
-  } else if (to.matched.some((record: any) => record.meta.requiresAuth)) {
-    const loginpath = window.location.pathname;
-    next({ name: 'Login', query: { from: loginpath } });
-  } else {
-    next();
-  }
-});
 export default router;
