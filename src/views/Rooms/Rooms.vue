@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <StudentsComponent />
+    <RoomsComponent />
   </div>
 </template>
 
@@ -9,12 +9,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 // components
-import StudentsComponent from '@/components/Students/Students.component.vue';
+import RoomsComponent from '@/components/Rooms/Rooms.component.vue';
 // components setup
 @Component({
-  components: { StudentsComponent },
+  components: { RoomsComponent },
 })
-export default class Students extends Vue {
+export default class Rooms extends Vue {
   constructor() {
     super();
   }

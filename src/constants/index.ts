@@ -1,13 +1,6 @@
 import { ROUTES } from './routes';
 
-import {
-  DEFAULT,
-  APP,
-  REGISTER,
-  LOGIN,
-  NOT_FOUND,
-  DISPLAY_TYPE,
-} from './content';
+import { DEFAULT, APP, REGISTER, LOGIN, NOT_FOUND } from './content';
 
 import { INPUT } from './inputs';
 import { BUTTON } from './buttons';
@@ -27,7 +20,6 @@ export {
   NOT_FOUND,
   INPUT,
   BUTTON,
-  DISPLAY_TYPE,
   SUCCESS,
   ERRORS,
   STORE_MAIN_MODULE,

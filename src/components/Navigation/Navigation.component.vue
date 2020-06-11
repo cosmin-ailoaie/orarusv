@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation-wrapper mt-5">
+  <div class="navigation-wrapper mt-5 page">
     <b-row align-v="center">
       <b-col
         lg="3"
@@ -10,9 +10,11 @@
         :key="index"
         class="my-2"
       >
-        <div class="fakeButton">
-          {{ button.name }}
-        </div>
+        <router-link :to="button.path">
+          <div class="fakeButton">
+            {{ button.name }}
+          </div>
+        </router-link>
       </b-col>
     </b-row>
   </div>
@@ -22,17 +24,19 @@
 // vue
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
-
+import { APP, ROUTES } from '@/constants';
 // component setup
 @Component({ computed: mapGetters({}) })
 export default class NavigationComponent extends Vue {
   // private
   // private readonly APP: {} = APP;
+  private readonly APP: {} = APP;
+  private readonly ROUTES: {} = ROUTES;
   private options = [
-    { name: 'FAVORITE' },
-    { name: 'FACULTATI' },
-    { name: 'PROFESORI' },
-    { name: 'SALI' },
+    { name: 'FAVORITE', path: '/' },
+    { name: 'FACULTATI', path: ROUTES.FACULTIES.path },
+    { name: 'PROFESORI', path: ROUTES.TEACHERS.path },
+    { name: 'SALI', path: ROUTES.ROOMS.path },
   ];
 
   constructor() {

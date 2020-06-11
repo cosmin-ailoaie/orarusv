@@ -2,11 +2,11 @@
   <div id="app">
     <div>
       <NavigationBarComponent />
-      <transition name="router-anim" enter-active-class="animated backInRight" leave-active-class="animated backOutLeft"
       <b-container>
-        <router-view />
+        <transition name="router-anim">
+          <router-view />
+        </transition>
       </b-container>
-      </transition>
     </div>
   </div>
 </template>

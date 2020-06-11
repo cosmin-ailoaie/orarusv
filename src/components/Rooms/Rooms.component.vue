@@ -11,7 +11,7 @@ import { mapGetters } from 'vuex';
 
 // component setup
 @Component({ computed: mapGetters({}) })
-export default class RoomComponent extends Vue {
+export default class RoomsComponent extends Vue {
   // private
   // private readonly APP: {} = APP;
 

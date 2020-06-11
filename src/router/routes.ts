@@ -13,6 +13,30 @@ export const ROUTES = [
     },
   },
   {
+    path: '/facultati',
+    name: 'Facultati',
+    component: () => import('@/views/Faculties/Faculties.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/profesori',
+    name: 'Profesori',
+    component: () => import('@/views/Teachers/Teachers.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/sali',
+    name: 'Sali',
+    component: () => import('@/views/Rooms/Rooms.vue'),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/404',
     name: 'Page not found',
     component: () => import('@/views/404.vue'),
