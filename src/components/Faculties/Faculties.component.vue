@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <ul>
       <li>
         <a href="#" onclick="selecteazaFacultatea(1)"

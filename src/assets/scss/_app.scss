@@ -15,10 +15,6 @@ body {
   color: $color-medium-gray;
   height: 100%;
 }
-.page {
-  position: fixed;
-  width: inherit;
-}
 
 .router-anim-enter-active {
   animation: comming 0.5s;
