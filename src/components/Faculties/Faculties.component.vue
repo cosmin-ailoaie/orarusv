@@ -4,6 +4,11 @@
     style="display:inline-block;margin:10px auto; width: inherit"
   >
     <ul>
+      <li>
+        <router-link :to="ROUTES.HOME.path"
+          ><i class="fas fa-arrow-left"></i
+        ></router-link>
+      </li>
       <li v-for="faculty in FACULTIES" :key="faculty.id" class="my-2 text-left">
         <div class="facultyItem" @click="toFaculty(faculty.id)">
           {{ faculty.name }}
@@ -37,12 +42,13 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import { FACULTIES } from '@/store/modules/main/getters';
 import { GET_FACULTIES_ACTION } from '@/store/modules/main/actions';
+import { ROUTES } from '@/constants/routes';
 
 // component setup
 @Component({ computed: mapGetters({ FACULTIES }) })
 export default class FacultiesComponent extends Vue {
   // private
-  // private readonly APP: {} = APP;
+  private readonly ROUTES: {} = ROUTES;
 
   constructor() {
     super();
