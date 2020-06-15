@@ -3,7 +3,7 @@ import { ROUTES } from '../constants/routes';
 import router from '../router';
 import $store from '../store';
 
-const BASE_URL = 'https://cors-anywhere.herokuapp.com/https://orar.usv.ro/';
+const BASE_URL = process.env.VUE_APP_API_URL;
 
 const httpClient = axios.create({
   baseURL: BASE_URL,
@@ -11,6 +11,8 @@ const httpClient = axios.create({
     'Accept': 'application/json',
     'Content-Type': 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': '*',
+    'Origin': 'https://orar.usv.ro/',
+    'X-Requested-With': 'XMLHttpRequest',
   },
 });
 
