@@ -3,7 +3,7 @@ import { ROUTES } from '../constants/routes';
 import router from '../router';
 import $store from '../store';
 
-const BASE_URL = process.env.VUE_APP_API_URL;
+const BASE_URL = 'https://cors-anywhere.herokuapp.com/https://orar.usv.ro/';
 
 const httpClient = axios.create({
   baseURL: BASE_URL,

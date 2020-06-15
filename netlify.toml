@@ -1,7 +1,0 @@
-[[redirects]]
-  from = "/*"
-  to = "https://orar.usv.ro/orar/"
-  status = 200
-  query = {path = ":path"}
-  force = true # COMMENT: ensure that we always redirect
-  headers = {X-From = "Netlify"}
