@@ -1,2 +1,4 @@
 [[redirects]]
-  /api/* https://orar.usv.ro/:splat 200
+  from = "/api/*"
+  to = "https://orar.usv.ro/"
+  status = 200
