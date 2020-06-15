@@ -24,4 +24,6 @@ export {
   ERRORS,
   STORE_MAIN_MODULE,
   LOADER,
+  ALERT,
+  SIZE,
 };

@@ -1,3 +1,6 @@
 export const defaults = {
-  account: `/account/`,
+  data: `/orar/vizualizare/data/`,
+};
+export const faculties = {
+  main: `${defaults.data}facultati.php`,
 };

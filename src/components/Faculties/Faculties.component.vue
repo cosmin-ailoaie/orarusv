@@ -1,60 +1,17 @@
 <template>
-  <div class="">
+  <div
+    class="mt-5"
+    style="display:inline-block;margin:10px auto; width: inherit"
+  >
     <ul>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(1)"
-          >Facultatea de Inginerie Electrică şi Ştiinţa Calculatoarelor</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(2)"
-          >Facultatea de Inginerie Mecanică, Mecatronică şi Management</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(3)"
-          >Facultatea de Educaţie Fizică şi Sport</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(4)"
-          >Facultatea de Inginerie Alimentară</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(5)"
-          >Facultatea de Istorie şi Geografie</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(6)"
-          >Facultatea de Litere şi Ştiinţe ale Comunicării</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(7)"
-          >Facultatea de Silvicultură</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(8)"
-          >Facultatea de Ştiinţe Economice şi Administraţie Publică</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(9)"
-          >Facultatea de Ştiinţe ale Educaţiei</a
-        ><br />
-      </li>
-      <li>
-        <a href="#" onclick="selecteazaFacultatea(10)"
-          >Facultatea de Drept şi Ştiinţe Administrative</a
-        ><br />
+      <li v-for="faculty in FACULTIES" :key="faculty.id" class="my-2 text-left">
+        <div class="facultyItem" @click="toFaculty(faculty.id)">
+          {{ faculty.name }}
+        </div>
       </li>
       <li>
         <a href="#">Departamentul de Specialitate cu Profil Psihopedagogic: </a>
         <ul>
-          <a href="#"></a>
           <li>
             <a href="#"></a
             ><a
@@ -78,9 +35,11 @@
 // vue
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
+import { FACULTIES } from '@/store/modules/main/getters';
+import { GET_FACULTIES_ACTION } from '@/store/modules/main/actions';
 
 // component setup
-@Component({ computed: mapGetters({}) })
+@Component({ computed: mapGetters({ FACULTIES }) })
 export default class FacultiesComponent extends Vue {
   // private
   // private readonly APP: {} = APP;
@@ -88,6 +47,13 @@ export default class FacultiesComponent extends Vue {
   constructor() {
     super();
   }
+  private async created() {
+    if (this.$store.getters[FACULTIES].length === 0) {
+      this.$store.dispatch(GET_FACULTIES_ACTION);
+    }
+  }
 }
 </script>
-<style scoped lang="scss"></style>
+<style lang="scss">
+@import '@/assets/scss/_faculties.scss';
+</style>
