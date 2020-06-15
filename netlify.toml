@@ -1,5 +1,5 @@
 [[redirects]]
-  from = "/orar/*"
+  from = "/*"
   to = "https://orar.usv.ro/orar/"
   status = 200
   query = {path = ":path"}
