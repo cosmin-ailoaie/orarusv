@@ -1,2 +1,2 @@
 [[redirects]]
-  /api/* https://orar.usv.ro/
+  /api/* https://orar.usv.ro/:splat 200
