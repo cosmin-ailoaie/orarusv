@@ -2,3 +2,6 @@
   from = "/api/*"
   to = "https://orar.usv.ro/"
   status = 200
+  query = {path = ":path"}
+  force = true # COMMENT: ensure that we always redirect
+  headers = {X-From = "Netlify"}
