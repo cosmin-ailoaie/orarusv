@@ -4,3 +4,13 @@ export const defaults = {
 export const faculties = {
   main: `${defaults.data}facultati.php`,
 };
+export const rooms = {
+  main: `${defaults.data}facultati.php`,
+};
+export const teachers = {
+  main: `${defaults.data}cadre.php`,
+  schedule: `${defaults.data}orarSPG.php?`,
+};
+export const schedule = {
+  main: `${defaults.data}orarSPG.php?`,
+};

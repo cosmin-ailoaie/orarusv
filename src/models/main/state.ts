@@ -1,8 +1,9 @@
 export interface State {
   teachers: [];
+  selectedTeacher: number;
   faculties: [];
   rooms: [];
-  schedule: {};
+  schedule: [];
   isLoading: false;
   hasError: false;
   alert: {};

@@ -11,7 +11,6 @@ const httpClient = axios.create({
     'Accept': 'application/json',
     'Content-Type': 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': '*',
-    'Origin': 'https://orar.usv.ro/',
     'X-Requested-With': 'XMLHttpRequest',
   },
 });

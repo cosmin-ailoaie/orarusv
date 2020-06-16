@@ -1,4 +1,5 @@
-import { getTeachers } from './methods/teachers';
+import { getTeachersList, getTeacherSchedule } from './methods/teachers';
 import { getFacultiesList } from './methods/faculties';
+import { getRoomsList } from './methods/rooms';
 
-export { getTeachers, getFacultiesList };
+export { getTeachersList, getTeacherSchedule, getFacultiesList, getRoomsList };
