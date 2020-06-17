@@ -19,4 +19,9 @@ export const ROUTES = {
     path: '/sali',
     name: 'Sali',
   },
+  SCHEDULE: {
+    path: '/orar',
+    name: 'Orar',
+    schedule: (id: any, mode: any) => `/orar?id=${id}&mode=${mode}`,
+  },
 };

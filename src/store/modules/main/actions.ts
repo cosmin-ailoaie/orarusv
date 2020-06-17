@@ -106,7 +106,7 @@ export const actions = {
   GET_SCHEDULE_ACTION: async ({ commit }: any, payload: any) => {
     try {
       commit(IS_LOADING_MUTATION, { isLoading: true });
-      const response: any = await getFacultiesList();
+      const response: any = await getTeacherSchedule(payload);
       commit(GET_SCHEDULE_MUTATION, { schedule: response });
       commit(IS_LOADING_MUTATION, { isLoading: false });
     } catch (error) {
