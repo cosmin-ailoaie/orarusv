@@ -1,68 +1,45 @@
 <template>
-  <div class="grid-container">
-    <div class="sidebar">
-      <AppNav></AppNav>
-    </div>
+  <div id="app">
     <div>
-      <div class="main">
-        <main class="main-section">
-          <AppSelection />
-        </main>
-      </div>
+      <NavigationBarComponent />
+      <b-container>
+        <transition name="router-anim">
+          <router-view />
+        </transition>
+      </b-container>
     </div>
-    <footer>
-      <app-footer></app-footer>
-    </footer>
   </div>
 </template>
 
-<script>
-import AppSelection from "./components/Selection.vue";
-// import AppHeader from "./components/Header.vue";
-import AppNav from "./components/Navigation.vue";
-// import AppFooter from './components/Footer.vue'
-export default {
-  name: "app",
+<script lang="ts">
+// * vue
+import { Component, Vue } from 'vue-property-decorator';
 
-  // data() {},
-  components: {
-    AppSelection,
-    // AppHeader,
-    AppNav
-    // AppFooter
+// * components
+import NavigationBarComponent from '@/components/Navigation/NavigationBar.component.vue';
+
+// * content
+import { ROUTES } from '@/constants';
+
+// * components setup
+@Component({
+  components: { NavigationBarComponent },
+})
+export default class App extends Vue {
+  // * private
+  private readonly ROUTES: {} = ROUTES;
+  private requiresAuth: boolean = false;
+
+  constructor() {
+    super();
   }
-};
+
+  private updated() {
+    this.requiresAuth = this.$router.currentRoute.meta.requiresAuth;
+  }
+}
 </script>
 
-<style>
-ul {
-  margin: -1px !important;
-}
-.grid-container {
-  /* transition: all 1s ease-out; */
-  display: grid;
-  grid-template-columns: 20% auto;
-  grid-template-rows: 100vh;
-}
-.sidebar {
-  background-color: rgb(19, 63, 138);
-  height: 100%;
-  width: 100%;
-  max-width: 250px;
-}
-@media (max-width: 992px) {
-  .grid-container {
-    grid-template-columns: 100px auto;
-    grid-template-rows: 100vh;
-  }
-}
-@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: auto;
-    grid-template-rows: 105px auto;
-  }
-  .sidebar {
-    max-width: none;
-  }
-}
+<style lang="scss">
+@import '@/assets/scss/_app.scss';
 </style>

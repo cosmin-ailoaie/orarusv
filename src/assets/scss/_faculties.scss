@@ -1,0 +1,12 @@
+@import './variables.scss';
+.facultyItem {
+  font-size: 1.5rem;
+  &:hover {
+    font-weight: bolder;
+    color: $color-c1-blue !important;
+  }
+}
+.mijloc {
+  margin-left: auto;
+  margin-right: auto;
+}
