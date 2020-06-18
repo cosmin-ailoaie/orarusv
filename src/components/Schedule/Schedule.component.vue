@@ -1,5 +1,11 @@
 <template>
-  <div class="schedule">
+  <div class="schedule mt-5">
+    <h5 v-if="SCHEDULE.length > 0">
+      {{ SCHEDULE[0].teachingDegreeName }}
+      {{ SCHEDULE[0].doctoralSituationsName }}
+      {{ SCHEDULE[0].activityTypesName }} {{ SCHEDULE[0].teacherLastName }}
+      {{ SCHEDULE[0].teacherFirstName }}
+    </h5>
     <table>
       <thead>
         <tr class="day">
@@ -9,52 +15,92 @@
       </thead>
       <tbody>
         <tr v-for="hour in hours" :key="hour.hId">
-          <td>{{ hour.name }}</td>
-          <td v-for="day in days" :key="day.dId">
-            <template v-for="c in Courses(day.dId)">
-              <td
-                :key="c.id"
-                :rowspan="c.courseDuration / 60"
-                v-if="
-                  c.courseDayNumber === day.dId &&
-                    c.courseStartHour === hour.hId
-                "
-                :style="{ backgroundColor: c.activityColor }"
+          <td>{{ hour.name }} {{ daysCount(0) }}</td>
+
+          <template v-for="day in days">
+            <td
+              v-if="Courses(day.dId, hour.hId).length > 0"
+              :key="day.dId"
+              :rowspan="Courses(day.dId, hour.hId)[0].courseDuration / 60"
+              :style="{
+                backgroundColor: Courses(day.dId, hour.hId)[0].activityColor,
+              }"
+              :class="Courses(day.dId, hour.hId).length > 0 ? 'hasCourse' : ''"
+            >
+              <!-- {{ CoursesTest(day.dId, hour.hId)['courseDuration'] }} -->
+              <span
+                class="hasCourse"
+                v-for="c in Courses(day.dId, hour.hId)"
+                :key="c.activityId"
               >
-                {{ c.courseShortName }} {{ c.activityType }}
-                {{ c.roomShortName }}
-                <div
-                  class="tooltiptext"
-                  v-if="
-                    c.courseDayNumber === day.dId &&
-                      c.courseStartHour === hour.hId
-                  "
-                >
+                <span v-if="c.courseParity === 'i'">
+                  {{ c.courseShortName }} {{ c.activityType }}
+                  {{ c.roomShortName }}
                   <ul>
                     <li>
-                      activiate cuprinsa intre {{ c.courseStartHour / 60 }}:<sup
-                        >00</sup
-                      >
-                      si {{ (c.courseStartHour + c.courseDuration) / 60 }}:<sup
-                        >00</sup
-                      >
-                      {{
-                        c.courseParity === 'p'
-                          ? ', in saptamanile pare'
-                          : c.courseParity === 'i'
-                          ? ',in saptamanile impare'
-                          : ''
-                      }}
-                    </li>
-                    <li>disciplina: {{ c.courseName }}, {{ c.courseType }}</li>
-                    <li>
-                      sala: {{ c.roomName }} din corpul {{ c.buildingName }}
+                      {{ c.courseOtherInfo }}
                     </li>
                   </ul>
-                </div>
-              </td>
-            </template>
-          </td>
+                </span>
+                <hr
+                  color="blue"
+                  width="75%"
+                  v-if="
+                    (c.courseParity === 'p' || c.courseParity === 'i') &&
+                      Courses(day.dId, hour.hId).length > 0
+                  "
+                />
+                <span v-if="c.courseParity === 'p'">
+                  {{ c.courseShortName }} {{ c.activityType }}
+                  {{ c.roomShortName }}
+                  <ul>
+                    <li>
+                      {{ c.courseOtherInfo }}
+                    </li>
+                  </ul>
+                </span>
+                <span v-if="c.courseParity === '-'">
+                  {{ c.courseShortName }} {{ c.activityType }}
+                  {{ c.roomShortName }}
+                  <ul>
+                    <li>
+                      {{ c.courseOtherInfo }}
+                    </li>
+                  </ul>
+                </span>
+              </span>
+              <!-- {{ rowSpanComputed(c.courseDuration / 60) }} -->
+              <div
+                class="tooltiptext"
+                v-for="(c, index) in Courses(day.dId, hour.hId)"
+                :key="index"
+              >
+                <ul>
+                  <li>
+                    activiate cuprinsa intre {{ c.courseStartHour / 60 }}:<sup
+                      >00</sup
+                    >
+                    si {{ (c.courseStartHour + c.courseDuration) / 60 }}:<sup
+                      >00</sup
+                    >
+                    {{
+                      c.courseParity === 'p'
+                        ? ', in saptamanile pare'
+                        : c.courseParity === 'i'
+                        ? ',in saptamanile impare'
+                        : ''
+                    }}
+                  </li>
+                  <li>disciplina: {{ c.courseName }}, {{ c.courseType }}</li>
+                  <li>
+                    sala: {{ c.roomName }} din corpul {{ c.buildingName }}
+                  </li>
+                  <li v-if="c.courseOtherInfo">{{ c.courseOtherInfo }}</li>
+                </ul>
+              </div>
+            </td>
+            <td v-else-if="!rowSpanTest(day.dId, hour.hId)" :key="day.dId"></td>
+          </template>
         </tr>
       </tbody>
     </table>
@@ -69,7 +115,10 @@ import { mapGetters } from 'vuex';
 import { SCHEDULE } from '@/store/modules/main/getters';
 
 import { ROUTES } from '@/constants';
-import { GET_TEACHER_SCHEDULE_ACTION } from '../../store/modules/main/actions';
+import {
+  GET_TEACHER_SCHEDULE_ACTION,
+  RESET_SCHEDULE_ACTION,
+} from '../../store/modules/main/actions';
 
 // component setup
 @Component({ computed: mapGetters({ SCHEDULE }) })
@@ -161,6 +210,8 @@ export default class ScheduleComponent extends Vue {
     },
   ];
   private COURSES: any = [];
+  private rowSpan = 1;
+  private daysCounted = 0;
   constructor() {
     super();
   }
@@ -172,11 +223,33 @@ export default class ScheduleComponent extends Vue {
     }
   }
   get Courses() {
-    return (day: any) => {
+    return (day: any, hour: any) => {
       return this.$store.getters[SCHEDULE].filter(
-        (c: any) => c.courseDayNumber === day,
+        (c: any) => c.courseDayNumber === day && c.courseStartHour === hour,
       );
     };
+  }
+  get rowSpanTest() {
+    return (day: any, hour: any) => {
+      return (
+        this.$store.getters[SCHEDULE].filter(
+          (c: any) =>
+            c.courseDayNumber === day &&
+            c.courseStartHour + c.courseDuration > hour &&
+            c.courseStartHour < hour,
+        ).length > 0
+      );
+    };
+  }
+
+  private daysCount(zero: number) {
+    this.daysCounted = zero === 0 ? 0 : ++this.daysCounted;
+  }
+  private rowSpanComputed(row: any) {
+    this.rowSpan = row !== 1 ? row : 1;
+  }
+  private async beforeDestroy() {
+    this.$store.dispatch(RESET_SCHEDULE_ACTION);
   }
 }
 </script>

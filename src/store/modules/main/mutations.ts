@@ -12,6 +12,7 @@ export const SELECT_TEACHER_MUTATION = 'SELECT_TEACHER_MUTATION';
 export const GET_SCHEDULE_MUTATION = 'GET_SCHEDULE_MUTATION';
 
 export const IS_LOADING_MUTATION = 'IS_LOADING_MUTATION';
+export const RESET_SCHEDULE_MUTATION = 'RESET_SCHEDULE_MUTATION';
 export const RESET_STATE_MUTATION = 'RESET_STATE_MUTATION';
 
 export const mutations = {
@@ -133,5 +134,9 @@ export const mutations = {
   IS_LOADING_MUTATION: (state: State, payload: any) => set(state, payload),
   RESET_STATE_MUTATION: (state: State, payload: any) => {
     Object.assign(state, initialState());
+  },
+
+  RESET_SCHEDULE_MUTATION: (state: State, payload: any) => {
+    Object.assign(state.schedule, initialState().schedule);
   },
 };
