@@ -1,0 +1,80 @@
+@import './variables.scss';
+
+.schedule table {
+  border-collapse: separate;
+  border-spacing: 5px;
+  thead tr {
+    td:not(:first-child) {
+      color: black;
+      background-color: white;
+      text-transform: uppercase;
+      font-weight: bold;
+      border: 2px solid black;
+    }
+  }
+  tbody tr {
+    &:nth-child(4n),
+    &:nth-child(4n-1) {
+      background: white;
+    }
+    &:nth-child(4n-2),
+    &:nth-child(4n-3) {
+      background: #eaeae6;
+    }
+    td {
+      &:first-child {
+        background-color: white;
+      }
+      border: 1px solid black;
+      color: black;
+      width: 120px;
+      position: relative;
+
+      &:first-child {
+        border: 2px solid black;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      &:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+      .tooltiptext {
+        visibility: hidden;
+        max-width: 600px;
+        width: 500px;
+        background-color: #e2e7ff;
+        color: #004;
+        text-align: left;
+        border-radius: 6px;
+        padding: 10px 50px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        right: -250%;
+        opacity: 0;
+        transition: opacity 0.5s;
+        text-transform: none;
+        ul {
+          margin-bottom: 0rem;
+          li {
+            &:before {
+              content: '• ';
+            }
+          }
+        }
+      }
+
+      .tooltiptext::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        right: -250%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #00f transparent transparent transparent;
+      }
+    }
+  }
+}
