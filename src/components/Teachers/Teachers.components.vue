@@ -6,7 +6,7 @@
         :key="teacher.id"
         @click="selectTeacher(teacher.id)"
       >
-        {{ teacher.lastName }} {{ teacher.firstName }}
+        {{ teacher.id }}{{ teacher.lastName }} {{ teacher.firstName }}
       </li>
     </ul>
     <section>

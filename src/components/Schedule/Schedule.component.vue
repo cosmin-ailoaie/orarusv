@@ -1,78 +1,63 @@
 <template>
-  <div class="">
-    <ul class="">
-      <li v-for="course in SCHEDULE" :key="course.id">
-        {{ course }}
-      </li>
-    </ul>
+  <div class="schedule">
     <table>
       <thead>
-        <tr>
-          <th>ORE</th>
+        <tr class="day">
+          <td></td>
           <td v-for="day in days" :key="day.dID">{{ day.name }}</td>
         </tr>
       </thead>
       <tbody>
         <tr v-for="hour in hours" :key="hour.hId">
           <td>{{ hour.name }}</td>
-          <td v-for="day in days" :key="day.dID">.</td>
+          <td v-for="day in days" :key="day.dId">
+            <template v-for="c in Courses(day.dId)">
+              <td
+                :key="c.id"
+                :rowspan="c.courseDuration / 60"
+                v-if="
+                  c.courseDayNumber === day.dId &&
+                    c.courseStartHour === hour.hId
+                "
+                :style="{ backgroundColor: c.activityColor }"
+              >
+                {{ c.courseShortName }} {{ c.activityType }}
+                {{ c.roomShortName }}
+                <div
+                  class="tooltiptext"
+                  v-if="
+                    c.courseDayNumber === day.dId &&
+                      c.courseStartHour === hour.hId
+                  "
+                >
+                  <ul>
+                    <li>
+                      activiate cuprinsa intre {{ c.courseStartHour / 60 }}:<sup
+                        >00</sup
+                      >
+                      si {{ (c.courseStartHour + c.courseDuration) / 60 }}:<sup
+                        >00</sup
+                      >
+                      {{
+                        c.courseParity === 'p'
+                          ? ', in saptamanile pare'
+                          : c.courseParity === 'i'
+                          ? ',in saptamanile impare'
+                          : ''
+                      }}
+                    </li>
+                    <li>disciplina: {{ c.courseName }}, {{ c.courseType }}</li>
+                    <li>
+                      sala: {{ c.roomName }} din corpul {{ c.buildingName }}
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </template>
+          </td>
         </tr>
       </tbody>
     </table>
-    <!-- <table>
-      <tr>
-        <th>ORE</th>
-        <th>Luni</th>
-        <th>Marti</th>
-        <th>Miercuri</th>
-        <th>Joi</th>
-        <th>Vineri</th>
-        <th>Sambata</th>
-        <th>Duminica</th>
-         move to constants 
-      </tr>
-      <tr>
-        <td>8:00 - 9:00</td>
-        <td>9:00 - 10:00</td>
-        <td>10:00 - 11:00</td>
-        <td>11:00 - 12:00</td>
-        <td>12:00 - 13:00</td>
-        <td>13:00 - 14:00</td>
-        <td>14:00 - 15:00</td>
-        <td>15:00 - 16:00</td>
-        <td>16:00 - 17:00</td>
-        <td>17:00 - 18:00</td>
-        <td>18:00 - 19:00</td>
-        <td>19:00 - 20:00</td>
-        <td>20:00 - 21:00</td>
-        <td>21:00 - 22:00</td>
-      </tr>
-      <tr>
-        <td>Centro comercial Moctezuma</td>
-        <td>Francisco Chang</td>
-        <td>Mexico</td>
-      </tr>
-      <tr>
-        <td>Ernst Handel</td>
-        <td>Roland Mendel</td>
-        <td>Austria</td>
-      </tr>
-      <tr>
-        <td>Island Trading</td>
-        <td>Helen Bennett</td>
-        <td>UK</td>
-      </tr>
-      <tr>
-        <td>Laughing Bacchus Winecellars</td>
-        <td>Yoshi Tannamuri</td>
-        <td>Canada</td>
-      </tr>
-      <tr>
-        <td>Magazzini Alimentari Riuniti</td>
-        <td>Giovanni Rovelli</td>
-        <td>Italy</td>
-      </tr>
-    </table> -->
   </div>
 </template>
 
@@ -159,38 +144,42 @@ export default class ScheduleComponent extends Vue {
       name: '16:00-17:00',
     },
     {
-      hId: 1040,
+      hId: 1020,
       name: '18:00-19:00',
     },
     {
-      hId: 1100,
+      hId: 1080,
       name: '19:00-20:00',
     },
     {
-      hId: 1160,
+      hId: 1140,
       name: '20:00-21:00',
     },
     {
-      hId: 1240,
+      hId: 1200,
       name: '21:00-22:00',
     },
   ];
+  private COURSES: any = [];
   constructor() {
     super();
   }
   private async created() {
-    // if (this.$store.getters[SCHEDULE].length === 0) {
-
-    //   this.$router.push(ROUTES.HOME.path);
-    // }
-    console.log(this.$route);
-
     const mode = this.$route.query.mode;
     const id = this.$route.query.id;
     if (mode === 'prof') {
       this.$store.dispatch(GET_TEACHER_SCHEDULE_ACTION, { id, mode: 'prof' });
     }
   }
+  get Courses() {
+    return (day: any) => {
+      return this.$store.getters[SCHEDULE].filter(
+        (c: any) => c.courseDayNumber === day,
+      );
+    };
+  }
 }
 </script>
-<style scoped lang="scss"></style>
+<style lang="scss">
+@import '@/assets/scss/_schedule.scss';
+</style>

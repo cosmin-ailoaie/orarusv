@@ -91,8 +91,6 @@ export const mutations = {
       const list = _.split(payload.schedule, '" />');
       const list1 = _.split(list[1], '</br>');
       list1.pop();
-      console.log(list1);
-
       const json: any = [];
       list1.forEach((element: any) => {
         const line = element.split(';');
@@ -105,21 +103,26 @@ export const mutations = {
           teacherFirstName: line[5],
           teachingDegreeName: line[6],
           doctoralSituationsName: line[7],
-          activityTypesName: line[9],
-          roomId: line[10],
-          buildingName: line[11],
-          roomName: line[12],
-          roomShortName: line[13],
-          courseName: line[14],
-          courseShortName: line[15],
-          courseDayNumber: line[16],
-          courseStartHour: line[17],
+          activityTypesName: line[8],
+          roomId: line[9],
+          buildingName: line[10],
+          roomName: line[11],
+          roomShortName: line[12],
+          courseName: line[13],
+          courseShortName: line[14],
+          courseDayNumber: +line[15],
+          courseStartHour: +line[16],
+          courseDuration: +line[17],
           courseParity: line[18],
           courseOtherInfo: line[19],
+          courseSomeNumber: +line[20],
+          courseType: line[21],
         };
 
         json.push(obj);
       });
+      console.log(json);
+
       state.schedule = json;
     } else {
       state.schedule = [];
