@@ -38,8 +38,6 @@ export const mutations = {
     }
   },
   GET_TEACHERS_MUTATION: (state: State, payload: any) => {
-    console.log('in teachers mutation');
-
     if (payload.teachers.length > 0) {
       const list = payload.teachers.split('<br />').slice(1, 571);
       const json: any = [];
@@ -50,6 +48,7 @@ export const mutations = {
           lastName: line[1],
           firstName: line[2],
           faculty: line[3],
+          name: `${line[1]} ${line[2]}`,
         };
         json.push(obj);
       });
@@ -94,7 +93,10 @@ export const mutations = {
       list1.pop();
       const json: any = [];
       list1.forEach((element: any) => {
-        const line = element.split(';');
+        const line = element
+          .replace('&icirc;', 'i')
+          .replace('?', 't')
+          .split(';');
         const obj = {
           activityId: line[0],
           activityType: line[1],
@@ -122,8 +124,6 @@ export const mutations = {
 
         json.push(obj);
       });
-      console.log(json);
-
       state.schedule = json;
     } else {
       state.schedule = [];
@@ -137,6 +137,6 @@ export const mutations = {
   },
 
   RESET_SCHEDULE_MUTATION: (state: State, payload: any) => {
-    Object.assign(state.schedule, initialState().schedule);
+    state.schedule = initialState().schedule;
   },
 };

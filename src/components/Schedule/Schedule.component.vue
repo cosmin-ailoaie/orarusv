@@ -15,92 +15,28 @@
       </thead>
       <tbody>
         <tr v-for="hour in hours" :key="hour.hId">
-          <td>{{ hour.name }} {{ daysCount(0) }}</td>
-
+          <td>{{ hour.name }}</td>
           <template v-for="day in days">
-            <td
-              v-if="Courses(day.dId, hour.hId).length > 0"
+            <CourseComponent
               :key="day.dId"
-              :rowspan="Courses(day.dId, hour.hId)[0].courseDuration / 60"
-              :style="{
-                backgroundColor: Courses(day.dId, hour.hId)[0].activityColor,
-              }"
-              :class="Courses(day.dId, hour.hId).length > 0 ? 'hasCourse' : ''"
-            >
-              <!-- {{ CoursesTest(day.dId, hour.hId)['courseDuration'] }} -->
-              <span
-                class="hasCourse"
-                v-for="c in Courses(day.dId, hour.hId)"
-                :key="c.activityId"
-              >
-                <span v-if="c.courseParity === 'i'">
-                  {{ c.courseShortName }} {{ c.activityType }}
-                  {{ c.roomShortName }}
-                  <ul>
-                    <li>
-                      {{ c.courseOtherInfo }}
-                    </li>
-                  </ul>
-                </span>
-                <hr
-                  color="blue"
-                  width="75%"
-                  v-if="
-                    (c.courseParity === 'p' || c.courseParity === 'i') &&
-                      Courses(day.dId, hour.hId).length > 0
-                  "
-                />
-                <span v-if="c.courseParity === 'p'">
-                  {{ c.courseShortName }} {{ c.activityType }}
-                  {{ c.roomShortName }}
-                  <ul>
-                    <li>
-                      {{ c.courseOtherInfo }}
-                    </li>
-                  </ul>
-                </span>
-                <span v-if="c.courseParity === '-'">
-                  {{ c.courseShortName }} {{ c.activityType }}
-                  {{ c.roomShortName }}
-                  <ul>
-                    <li>
-                      {{ c.courseOtherInfo }}
-                    </li>
-                  </ul>
-                </span>
-              </span>
-              <!-- {{ rowSpanComputed(c.courseDuration / 60) }} -->
-              <div
-                class="tooltiptext"
-                v-for="(c, index) in Courses(day.dId, hour.hId)"
-                :key="index"
-              >
-                <ul>
-                  <li>
-                    activiate cuprinsa intre {{ c.courseStartHour / 60 }}:<sup
-                      >00</sup
-                    >
-                    si {{ (c.courseStartHour + c.courseDuration) / 60 }}:<sup
-                      >00</sup
-                    >
-                    {{
-                      c.courseParity === 'p'
-                        ? ', in saptamanile pare'
-                        : c.courseParity === 'i'
-                        ? ',in saptamanile impare'
-                        : ''
-                    }}
-                  </li>
-                  <li>disciplina: {{ c.courseName }}, {{ c.courseType }}</li>
-                  <li>
-                    sala: {{ c.roomName }} din corpul {{ c.buildingName }}
-                  </li>
-                  <li v-if="c.courseOtherInfo">{{ c.courseOtherInfo }}</li>
-                </ul>
-              </div>
-            </td>
-            <td v-else-if="!rowSpanTest(day.dId, hour.hId)" :key="day.dId"></td>
+              :courses="Courses(day.dId, hour.hId)"
+              v-if="!rowSpanTest(day.dId, hour.hId)"
+            ></CourseComponent>
           </template>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+      <tbody>
+        <tr>
+          <td style="border: none;background-color:transparent">Legenda:</td>
+          <td style="border: none;background-color:transparent"></td>
+          <td style="background-color:#ccbbbb">seminar</td>
+          <td style="background-color:#ccddcc">laborator</td>
+          <td style="background-color:#eeeeee">consultatii</td>
+          <td style="background-color:#ccddcc">proiect</td>
+          <td style="background-color:#9999aa">curs</td>
+          <td style="border: none;background-color:transparent"></td>
         </tr>
       </tbody>
     </table>
@@ -113,7 +49,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 
 import { SCHEDULE } from '@/store/modules/main/getters';
-
+import CourseComponent from '@/components/Schedule/Course.component.vue';
 import { ROUTES } from '@/constants';
 import {
   GET_TEACHER_SCHEDULE_ACTION,
@@ -121,9 +57,15 @@ import {
 } from '../../store/modules/main/actions';
 
 // component setup
-@Component({ computed: mapGetters({ SCHEDULE }) })
+@Component({
+  components: {
+    CourseComponent,
+  },
+  computed: mapGetters({ SCHEDULE }),
+})
 export default class ScheduleComponent extends Vue {
   // private
+  private countLine = 0;
   private readonly ROUTES: {} = ROUTES;
   private days = [
     {
@@ -132,7 +74,7 @@ export default class ScheduleComponent extends Vue {
     },
     {
       dId: 2,
-      name: 'Marti',
+      name: 'Marți',
     },
     {
       dId: 3,
@@ -148,11 +90,11 @@ export default class ScheduleComponent extends Vue {
     },
     {
       dId: 6,
-      name: 'Sambata',
+      name: 'Sâmbătă',
     },
     {
       dId: 7,
-      name: 'Duminica',
+      name: 'Duminică',
     },
   ];
   private hours = [
@@ -194,18 +136,22 @@ export default class ScheduleComponent extends Vue {
     },
     {
       hId: 1020,
-      name: '18:00-19:00',
+      name: '17:00-18:00',
     },
     {
       hId: 1080,
-      name: '19:00-20:00',
+      name: '18:00-19:00',
     },
     {
       hId: 1140,
-      name: '20:00-21:00',
+      name: '19:00-20:00',
     },
     {
       hId: 1200,
+      name: '20:00-21:00',
+    },
+    {
+      hId: 1260,
       name: '21:00-22:00',
     },
   ];
@@ -219,8 +165,12 @@ export default class ScheduleComponent extends Vue {
     const mode = this.$route.query.mode;
     const id = this.$route.query.id;
     if (mode === 'prof') {
-      this.$store.dispatch(GET_TEACHER_SCHEDULE_ACTION, { id, mode: 'prof' });
+      await this.$store.dispatch(GET_TEACHER_SCHEDULE_ACTION, {
+        id,
+        mode: 'prof',
+      });
     }
+    console.log(this.$store.getters[SCHEDULE]);
   }
   get Courses() {
     return (day: any, hour: any) => {

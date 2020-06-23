@@ -11,6 +11,7 @@ import store from './store';
 Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
+Vue.config.performance = true;
 
 Vue.use(BootstrapVue);
 

@@ -1,12 +1,27 @@
 <template>
   <div class="teachersList">
+    <b-input-group size="sm">
+      <b-input-group-prepend>
+        <span class="input-group-text"
+          ><i class="fas fa-search search-icon"></i
+        ></span>
+      </b-input-group-prepend>
+      <b-form-input
+        v-model="filter"
+        type="search"
+        id="filterInput"
+        placeholder="Cauta un profesor"
+      ></b-form-input>
+    </b-input-group>
     <ul class="teachers">
       <li
-        v-for="teacher in TEACHERS"
+        v-for="teacher in TEACHERS.filter(teacher =>
+          teacher.name.toLowerCase().includes(filter.trim().toLowerCase()),
+        )"
         :key="teacher.id"
         @click="selectTeacher(teacher.id)"
       >
-        {{ teacher.id }} {{ teacher.lastName }} {{ teacher.firstName }}
+        {{ teacher.lastName }} {{ teacher.firstName }}
       </li>
     </ul>
     <section>
@@ -43,7 +58,7 @@ import { ROUTES } from '@/constants';
 export default class TeachersComponent extends Vue {
   // private
   private readonly ROUTES: {} = ROUTES;
-
+  private filter: string = '';
   constructor() {
     super();
   }
@@ -84,10 +99,10 @@ export default class TeachersComponent extends Vue {
         color: blue;
       }
       &:nth-child(odd) {
-        background-color: grey;
+        background-color: lightgray;
       }
       &:nth-child(even) {
-        background-color: lightgrey;
+        background-color: lighter(lightgrey);
       }
     }
     color: white;

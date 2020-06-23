@@ -3,7 +3,7 @@
     <div>
       <NavigationBarComponent />
       <b-container>
-        <transition name="router-anim">
+        <transition name="router-anim" mode="out-in">
           <router-view />
         </transition>
       </b-container>
