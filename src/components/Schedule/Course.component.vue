@@ -2,7 +2,13 @@
   <td
     :rowspan="courses[0] ? courses[0].courseDuration / 60 : 1"
     :style="{
-      backgroundColor: courses[0] ? courses[0].activityColor : '',
+      backgroundColor: Courses('-')[0]
+        ? Courses('-')[0].activityColor
+        : Courses('i')[0]
+        ? Courses('i')[0].activityColor
+        : Courses('p')[0]
+        ? Courses('p')[0].activityColor
+        : '',
     }"
   >
     <div v-if="courses[0]">
@@ -18,6 +24,12 @@
         {{ Courses('-')[0].courseOtherInfo }}
       </div>
       <div
+        v-if="!Courses('i')[0] && Courses('p')[0] && !Courses('-')[0]"
+        style="padding:0px"
+      >
+        -
+      </div>
+      <div
         v-if="Courses('i')[0]"
         :id="Courses('i')[0].activityId"
         :style="{
@@ -28,10 +40,8 @@
         {{ Courses('i')[0].activityType }} {{ Courses('i')[0].roomShortName }}
         {{ Courses('i')[0].courseOtherInfo }}
       </div>
-      <div v-if="!Courses('i')[0] && Courses('p')[0]" style="padding:0px">
-        -
-      </div>
-      <hr color="blue" width="75%" v-if="Courses('i')[0] || Courses('p')[0]" />
+
+      <hr color="blue" width="100%" v-if="Courses('i')[0] || Courses('p')[0]" />
       <div
         v-if="Courses('p')[0]"
         :id="Courses('p')[0].activityId"
@@ -51,29 +61,27 @@
           <ul>
             <li>
               activiate cuprinsă între
-              {{ courses[0].courseStartHour / 60 }}:<sup>00</sup>
+              {{ c.courseStartHour / 60 }}:<sup>00</sup>
               și
+              {{ (c.courseStartHour + c.courseDuration) / 60 }}:<sup>00</sup>
               {{
-                (courses[0].courseStartHour + courses[0].courseDuration) / 60
-              }}:<sup>00</sup>
-              {{
-                courses[0].courseParity === 'p'
+                c.courseParity === 'p'
                   ? ', în săptămânile pare'
-                  : courses[0].courseParity === 'i'
+                  : c.courseParity === 'i'
                   ? ',în săptămânile impare'
                   : ''
               }}
             </li>
             <li>
-              disciplina: {{ courses[0].courseName }},
-              {{ courses[0].courseType }}
+              disciplina: {{ c.courseName }},
+              {{ c.courseType }}
             </li>
             <li>
-              sala: {{ courses[0].roomName }} din corpul
-              {{ courses[0].buildingName }}
+              sala: {{ c.roomName }} din corpul
+              {{ c.buildingName }}
             </li>
-            <li v-if="courses[0].courseOtherInfo">
-              {{ courses[0].courseOtherInfo }}
+            <li v-if="c.courseOtherInfo">
+              {{ c.courseOtherInfo }}
             </li>
           </ul>
         </b-tooltip>
@@ -124,6 +132,12 @@ export default class CourseComponent extends Vue {
 td hr {
   margin-top: 0px;
   margin-bottom: 0px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+td div {
+  //   padding-left: 5px;
+  //   padding-right: 5px;
 }
 // td div div {
 //   padding: 5px;
