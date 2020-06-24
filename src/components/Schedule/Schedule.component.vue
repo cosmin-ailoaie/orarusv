@@ -242,9 +242,9 @@ export default class ScheduleComponent extends Vue {
       return;
 
     if (this.touch.endX < this.touch.startX) {
-      this.dayToShow++;
+      this.dayToShow < 7 ? this.dayToShow++ : (this.dayToShow = 1);
     } else {
-      this.dayToShow--;
+      this.dayToShow > 1 ? this.dayToShow-- : (this.dayToShow = 7);
     }
   }
 }
