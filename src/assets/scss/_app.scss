@@ -9,6 +9,7 @@ html,
 body {
   background-color: $color-bg;
   // height: 100vh;
+  width: 100%;
 }
 #app {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -16,12 +17,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: $color-medium-gray;
+  position: relative;
   height: 100vh;
   margin: 0;
 }
 
 .router-anim-enter-active {
-  animation: comming 0.5s;
+  animation: coming 0.5s;
   animation-delay: 0.1s;
   opacity: 0;
 }
@@ -45,5 +47,10 @@ body {
   to {
     transform: translateX(0px);
     opacity: 1;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .container {
+    max-width: calc(100% - 20px) !important;
   }
 }

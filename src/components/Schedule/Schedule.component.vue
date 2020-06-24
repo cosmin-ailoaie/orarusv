@@ -6,28 +6,36 @@
       {{ SCHEDULE[0].activityTypesName }} {{ SCHEDULE[0].teacherLastName }}
       {{ SCHEDULE[0].teacherFirstName }}
     </h5>
-    <table>
-      <thead>
+    <table class="scheduleTable" :style="listLength">
+      <tbody>
         <tr class="day">
           <td></td>
-          <td v-for="day in days" :key="day.dID">{{ day.name }}</td>
+          <td
+            v-for="day in days"
+            :key="day.dID"
+            class="headDay"
+            :style="listPosition"
+          >
+            {{ day.name }}
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <tr v-for="hour in hours" :key="hour.hId">
-          <td>{{ hour.name }}</td>
+        <tr v-for="hour in hours" :key="hour.hId" class="hour">
+          <td class="interval">{{ hour.name }}</td>
           <template v-for="day in days">
             <CourseComponent
               :key="day.dId"
               :courses="Courses(day.dId, hour.hId)"
               v-if="!rowSpanTest(day.dId, hour.hId)"
+              class="bodyDay"
+              :class="day.dId != dayToShow ? 'blur' : ''"
+              :style="listPosition"
             ></CourseComponent>
           </template>
         </tr>
       </tbody>
     </table>
     <br />
-    <table>
+    <table class="legendTable">
       <tbody>
         <tr>
           <td style="border: none;background-color:transparent">Legenda:</td>
@@ -41,6 +49,9 @@
         </tr>
       </tbody>
     </table>
+    <button class="inc" @click="dayToShow == 7 ? (dayToShow = 1) : dayToShow++">
+      Inc Day
+    </button>
   </div>
 </template>
 
@@ -157,12 +168,18 @@ export default class ScheduleComponent extends Vue {
     },
   ];
   private COURSES: any = [];
-  private rowSpan = 1;
-  private daysCounted = 0;
+  //   private rowSpan = 1;
+  private dayToShow = 1;
+  private windowWidth = 99999;
+  private touch: any = {
+    startX: 0,
+    endX: 0,
+  };
   constructor() {
     super();
   }
   private async created() {
+    this.windowWidth = window.innerWidth;
     const mode = this.$route.query.mode;
     const id = this.$route.query.id;
     if (mode === 'prof') {
@@ -172,6 +189,9 @@ export default class ScheduleComponent extends Vue {
       });
     }
     console.log(this.$store.getters[SCHEDULE]);
+    this.$el.addEventListener('touchstart', event => this.touchstart(event));
+    this.$el.addEventListener('touchmove', event => this.touchmove(event));
+    this.$el.addEventListener('touchend', () => this.touchend());
   }
   get Courses() {
     return (day: any, hour: any) => {
@@ -192,15 +212,40 @@ export default class ScheduleComponent extends Vue {
       );
     };
   }
-
-  private daysCount(zero: number) {
-    this.daysCounted = zero === 0 ? 0 : ++this.daysCounted;
+  private mounted() {
+    window.addEventListener('resize', () => {
+      this.windowWidth = window.innerWidth;
+    });
   }
-  private rowSpanComputed(row: any) {
-    this.rowSpan = row !== 1 ? row : 1;
+  get listPosition() {
+    return this.windowWidth <= 768
+      ? { transform: 'translateX(-' + (this.dayToShow - 1) * 100 + '%)' }
+      : '';
+  }
+  get listLength() {
+    return this.windowWidth <= 768
+      ? { width: (this.days.length + 0) * 100 + '%' }
+      : '';
   }
   private async beforeDestroy() {
     this.$store.dispatch(RESET_SCHEDULE_ACTION);
+  }
+  private touchstart(event: any) {
+    this.touch.startX = event.touches[0].clientX;
+    this.touch.endX = 0;
+  }
+  private touchmove(event: any) {
+    this.touch.endX = event.touches[0].clientX;
+  }
+  private touchend() {
+    if (!this.touch.endX || Math.abs(this.touch.endX - this.touch.startX) < 20)
+      return;
+
+    if (this.touch.endX < this.touch.startX) {
+      this.dayToShow++;
+    } else {
+      this.dayToShow--;
+    }
   }
 }
 </script>

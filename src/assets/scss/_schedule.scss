@@ -1,9 +1,7 @@
 @import './variables.scss';
-// .schedule {
-//   display: flex;
-//   margin-left: auto;
-//   margin-right: auto;
-// }
+.schedule {
+  overflow: hidden;
+}
 .schedule table {
   border-collapse: separate;
   border-spacing: 5px;
@@ -12,9 +10,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   @media (min-width: 1200px) {
-    max-width: 1140px;
+    min-width: 1140px;
   }
-  thead tr {
+  //   @media (max-width: 1200px) {
+  //     width: calc(100% - 200px);
+  //   }
+  @media (max-width: 768px) {
+    display: flex;
+    width: 100%;
+  }
+  tr.day {
     td:not(:first-child) {
       color: black;
       background-color: white;
@@ -22,103 +27,136 @@
       font-weight: bold;
       border: 1px solid black;
       width: 140px;
+      //   @media (max-width: 768px) {
+      //     width: calc(100% - 80px);
+      //   }
+    }
+    td:first-child {
+      background-color: transparent;
+      border: none;
     }
   }
-  tbody tr {
-    &:nth-child(4n),
-    &:nth-child(4n-1) {
-      background: white;
+  tbody {
+    .headDay {
+      z-index: 99900;
     }
-    &:nth-child(4n-2),
-    &:nth-child(4n-3) {
-      background: #eaeae6;
-    }
-    td {
-      border: 1px solid black;
-      color: black;
-      width: 140px;
-      position: relative;
-      max-height: 80px;
-      vertical-align: middle;
-      //   overflow: hidden;
-      &.hideOverflow {
-        // display: flex !important;
-        // background-color: red;
-        // flex-wrap: wrap;
-        // align-self: center;
-        // align-content: center;
-        vertical-align: middle;
-        width: 80%;
-        // display: table-caption;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    tr {
+      &:nth-child(4n),
+      &:nth-child(4n-1) {
+        background: white;
       }
-      &:hover {
-        border: 1px solid $color-c1-blue;
+      &:nth-child(4n-2),
+      &:nth-child(4n-3) {
+        background: #eaeae6;
       }
-
-      &:first-child {
+      //   .bodyDay {
+      //     width: 100%;
+      //   }
+      td {
         border: 1px solid black;
-        text-transform: uppercase;
-        font-weight: bold;
-        background-color: white;
-        text-align: center;
-        vertical-align: middle;
-        width: 120px;
-      }
-      &:hover {
-        .tooltiptext {
-          visibility: visible;
-          opacity: 1;
+        color: black;
+        width: 140px;
+        @media (max-width: 768px) {
+          width: calc(100%-20px);
         }
-      }
+        position: relative;
+        max-height: 80px;
+        vertical-align: middle;
+        //   overflow: hidden;
+        &.hideOverflow {
+          // display: flex !important;
+          // background-color: red;
+          // flex-wrap: wrap;
+          // align-self: center;
+          // align-content: center;
+          vertical-align: middle;
+          width: 80%;
+          // display: table-caption;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        &:hover {
+          border: 1px solid $color-c1-blue;
+        }
 
-      .tooltiptext {
-        visibility: hidden;
-        max-width: 600px;
-        width: 500px;
-        background-color: #e2e7ff;
-        color: #004;
-        text-align: left;
-        border-radius: 6px;
-        padding: 10px 50px;
-        position: absolute;
-        z-index: 99999;
-        bottom: 125%;
-        // right: -250%;
-        transform: translateX(-50%);
-        opacity: 0;
-        transition: opacity 0.5s;
-        text-transform: none;
-        ul {
-          margin-bottom: 0rem;
-          li {
-            &:before {
-              content: '• ';
+        &:first-child {
+          border: 1px solid black;
+          text-transform: uppercase;
+          font-weight: bold;
+          background-color: white;
+          text-align: center;
+          vertical-align: middle;
+          width: 120px;
+        }
+        &:hover {
+          .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+
+        .tooltiptext {
+          visibility: hidden;
+          max-width: 600px;
+          width: 500px;
+          background-color: #e2e7ff;
+          color: #004;
+          text-align: left;
+          border-radius: 6px;
+          padding: 10px 50px;
+          position: absolute;
+          z-index: 99999;
+          bottom: 125%;
+          // right: -250%;
+          transform: translateX(-50%);
+          opacity: 0;
+          transition: opacity 0.5s;
+          text-transform: none;
+          ul {
+            margin-bottom: 0rem;
+            li {
+              &:before {
+                content: '• ';
+              }
             }
           }
         }
-      }
 
-      .tooltiptext::after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        transform: translateX(-50%);
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: #00f transparent transparent transparent;
+        .tooltiptext::after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          transform: translateX(-50%);
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: #00f transparent transparent transparent;
+        }
       }
     }
   }
 }
 
-.onlyFirstLine hr:not(:first-child) {
-  display: none;
-}
 .tooltip .tooltip-inner {
   max-width: 500px !important;
   width: 400px !important;
+}
+
+table.legendTable {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+button.inc {
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+.blur {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+.test {
+  background-color: red;
 }
