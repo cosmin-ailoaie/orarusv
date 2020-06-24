@@ -14,6 +14,7 @@
             v-for="day in days"
             :key="day.dID"
             class="headDay"
+            :class="day.dId != dayToShow && windowWidth < 768 ? 'blur' : ''"
             :style="listPosition"
           >
             {{ day.name }}
@@ -27,7 +28,7 @@
               :courses="Courses(day.dId, hour.hId)"
               v-if="!rowSpanTest(day.dId, hour.hId)"
               class="bodyDay"
-              :class="day.dId != dayToShow ? 'blur' : ''"
+              :class="day.dId != dayToShow && windowWidth < 768 ? 'blur' : ''"
               :style="listPosition"
             ></CourseComponent>
           </template>
@@ -189,8 +190,12 @@ export default class ScheduleComponent extends Vue {
       });
     }
     console.log(this.$store.getters[SCHEDULE]);
-    this.$el.addEventListener('touchstart', event => this.touchstart(event));
-    this.$el.addEventListener('touchmove', event => this.touchmove(event));
+    this.$el.addEventListener('touchstart', (event: any) =>
+      this.touchstart(event),
+    );
+    this.$el.addEventListener('touchmove', (event: any) =>
+      this.touchmove(event),
+    );
     this.$el.addEventListener('touchend', () => this.touchend());
   }
   get Courses() {
@@ -238,8 +243,12 @@ export default class ScheduleComponent extends Vue {
     this.touch.endX = event.touches[0].clientX;
   }
   private touchend() {
-    if (!this.touch.endX || Math.abs(this.touch.endX - this.touch.startX) < 20)
+    if (
+      !this.touch.endX ||
+      Math.abs(this.touch.endX - this.touch.startX) < 20
+    ) {
       return;
+    }
 
     if (this.touch.endX < this.touch.startX) {
       this.dayToShow < 7 ? this.dayToShow++ : (this.dayToShow = 1);

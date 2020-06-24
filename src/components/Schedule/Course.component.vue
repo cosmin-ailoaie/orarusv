@@ -132,9 +132,9 @@ export default class CourseComponent extends Vue {
 td hr {
   margin-top: 0px;
   margin-bottom: 0px;
-  padding-top: 1px;
-  padding-bottom: 1px;
+  border-top: 2px solid blue;
 }
+
 td div {
   //   padding-left: 5px;
   //   padding-right: 5px;

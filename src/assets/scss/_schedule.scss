@@ -5,12 +5,13 @@
 .schedule table {
   border-collapse: separate;
   border-spacing: 5px;
+
   margin: auto;
   table-layout: fixed;
   overflow: hidden;
   text-overflow: ellipsis;
   @media (min-width: 1200px) {
-    min-width: 1140px;
+    min-width: 1110px;
   }
   //   @media (max-width: 1200px) {
   //     width: calc(100% - 200px);
@@ -18,6 +19,8 @@
   @media (max-width: 768px) {
     display: flex;
     width: 100%;
+    // border-collapse: collapse;
+    // border-spacing: 5px 0px;
   }
   tr.day {
     td:not(:first-child) {
@@ -38,7 +41,7 @@
   }
   tbody {
     .headDay {
-      z-index: 99900;
+      z-index: 1;
     }
     tr {
       &:nth-child(4n),
@@ -154,8 +157,9 @@ button.inc {
   }
 }
 .blur {
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
+  filter: blur(1.5rem);
+  z-index: -1;
+  -webkit-filter: blur(1.5rem);
 }
 .test {
   background-color: red;
