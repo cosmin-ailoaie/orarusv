@@ -13,13 +13,13 @@
         <hr />
         <b-navbar-nav class="ml-auto">
           <b-nav-item :to="ROUTES.HOME.path" exact>
-            Studenti
+            Studenți
           </b-nav-item>
           <b-nav-item :to="ROUTES.HOME.path" exact>
-            Sali
+            Săli
           </b-nav-item>
           <b-nav-item :to="ROUTES.HOME.path" exact>
-            Facultati
+            Facultăți
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>

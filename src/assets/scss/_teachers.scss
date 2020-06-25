@@ -1,0 +1,73 @@
+@import './variables.scss';
+.teachersList {
+  .teachers {
+    position: relative;
+    // border: 1px solid black;
+    // margin: auto;
+    height: 64vh;
+    overflow: scroll;
+    overflow-x: hidden;
+    ul {
+      width: 100%;
+      position: relative;
+      background-color: white;
+      li {
+        list-style: none;
+        padding: 10px;
+        margin: 5px;
+        width: 100%;
+        box-shadow: 0 5px 25px rgba(#000, $alpha: 0.1);
+        transition: transform 0.2s;
+        // display: flex;
+        // justify-content: space-between;
+        // align-items: center;
+        // border: 1px solid black;
+        // margin: 1px;
+        background-color: white;
+        font-size: 1.2rem;
+        color: black;
+        &:hover {
+          //   font-weight: bold;
+          //   color: blue;
+          transform: scale(1.1);
+          z-index: 100;
+          background: $color-c1-blue;
+          color: white;
+          box-shadow: 0 5px 25px rgba(#000, $alpha: 0.1);
+        }
+        //   &:nth-child(odd) {
+        //     background-color: lightgray;
+        //   }
+        //   &:nth-child(even) {
+        //     background-color: lighter(lightgrey);
+        //   }s
+      }
+      color: white;
+    }
+  }
+  .alpha-letters-list {
+    // display: none;
+    // height: 60%;
+    .contains {
+      margin: 0px;
+    }
+    color: black;
+    // position: absolute;
+    // position: -webkit-sticky;
+    // top: 0px;
+    // right: 20px;
+  }
+}
+.fakeButton {
+  border-radius: 50px;
+  background-color: $color-white;
+  font-weight: bolder;
+  font-size: 1rem;
+  color: black;
+  padding: 5px 15px;
+  text-transform: uppercase;
+  &:hover {
+    background-color: $color-c1-blue;
+    color: $color-white;
+  }
+}

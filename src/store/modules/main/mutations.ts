@@ -53,7 +53,7 @@ export const mutations = {
         json.push(obj);
       });
       state.teachers = json.sort((a: any, b: any) =>
-        a.lastName > b.lastName ? 1 : b.lastName > a.lastName ? -1 : 0,
+        a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
       );
     } else {
       state.teachers = [];

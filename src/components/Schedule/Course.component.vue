@@ -135,10 +135,10 @@ td hr {
   border-top: 2px solid blue;
 }
 
-td div {
-  //   padding-left: 5px;
-  //   padding-right: 5px;
-}
+// td div {
+//   //   padding-left: 5px;
+//   //   padding-right: 5px;
+// }
 // td div div {
 //   padding: 5px;
 // }

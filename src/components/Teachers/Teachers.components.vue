@@ -1,42 +1,65 @@
 <template>
   <div class="teachersList">
-    <b-input-group size="sm">
-      <b-input-group-prepend>
-        <span class="input-group-text"
-          ><i class="fas fa-search search-icon"></i
-        ></span>
-      </b-input-group-prepend>
+    <b-row class="mt-4">
+      <b-col>
+        <div class="fakeButton">
+          Inapoi
+        </div>
+      </b-col>
+      <b-col>
+        <div class="fakeButton">
+          Acasa
+        </div>
+      </b-col>
+    </b-row>
+    <b-input-group size="sm mt-3">
       <b-form-input
         v-model="filter"
         type="search"
         id="filterInput"
         placeholder="Cauta un profesor"
       ></b-form-input>
+      <b-input-group-prepend>
+        <span class="input-group-text"
+          ><i class="fas fa-search search-icon"></i
+        ></span>
+      </b-input-group-prepend>
     </b-input-group>
-    <ul class="teachers">
-      <li
-        v-for="teacher in TEACHERS.filter(teacher =>
-          teacher.name.toLowerCase().includes(filter.trim().toLowerCase()),
-        )"
-        :key="teacher.id"
-        @click="selectTeacher(teacher.id)"
-      >
-        {{ teacher.lastName }} {{ teacher.firstName }}
-      </li>
-    </ul>
-    <section>
-      <div class="alpha-letters-list">
-        <div
-          v-for="(letter, index) in letters"
-          :key="index"
-          @click="selectedLetter = letter"
-          class="contains"
-        >
-          <span>{{ letter }}</span>
-          <i></i>
+    <b-row>
+      <b-col xs="10" sm="10" md="9" lg="11">
+        <div class="teachers mt-3">
+          <ul class="">
+            <li
+              v-for="teacher in TEACHERS.filter(teacher =>
+                teacher.name
+                  .toLowerCase()
+                  .includes(filter.trim().toLowerCase()),
+              )"
+              :key="teacher.id"
+              :id="teacher.id"
+              @click="selectTeacher(teacher.id)"
+            >
+              {{ teacher.lastName }} {{ teacher.firstName }}
+            </li>
+          </ul>
         </div>
-      </div>
-    </section>
+      </b-col>
+      <b-col xs="1" sm="1" md="3" lg="1">
+        <!-- <section> -->
+        <ul class="alpha-letters-list">
+          <li
+            v-for="(letter, index) in letters"
+            :key="index"
+            @click="selectedLetter(letter)"
+            class="contains"
+          >
+            <span>{{ letter }}</span>
+            <i></i>
+          </li>
+        </ul>
+        <!-- </section> -->
+      </b-col>
+    </b-row>
   </div>
 </template>
 
@@ -71,47 +94,22 @@ export default class TeachersComponent extends Vue {
     const letters: any = [];
     for (let i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
       letters.push(String.fromCharCode(i));
-      // if (i === 'S'.charCodeAt(0)) {
-      //   letters.push(String.fromCharCode('Ș'.charCodeAt(0)));
-      // }
-      // if (i === 'T'.charCodeAt(0)) {
-      //   letters.push(String.fromCharCode('Ț'.charCodeAt(0)));
-      // }
     }
     return letters;
   }
   private async selectTeacher(id: number) {
     this.$router.push(ROUTES.SCHEDULE.schedule(id, 'prof'));
   }
+  private selectedLetter(letter: any) {
+    const teachers = this.$store.getters[TEACHERS];
+    const id = teachers.find((t: any) => t.lastName[0] === letter).id;
+    const element = document.getElementById(id);
+    console.log(element);
+
+    element.scrollIntoView();
+  }
 }
 </script>
 <style scoped lang="scss">
-.teachersList {
-  position: relative;
-  border: 2px solid black;
-  height: 700px;
-  overflow: scroll;
-  overflow-x: hidden;
-  .teachers {
-    li {
-      &:hover {
-        font-weight: bold;
-        color: blue;
-      }
-      &:nth-child(odd) {
-        background-color: lightgray;
-      }
-      &:nth-child(even) {
-        background-color: lighter(lightgrey);
-      }
-    }
-    color: white;
-  }
-  section > .alpha-letters-list {
-    color: black;
-    position: absolute;
-    top: 0px;
-    right: 20px;
-  }
-}
+@import '@/assets/scss/_teachers.scss';
 </style>
