@@ -28,7 +28,7 @@
     <b-row>
       <b-col xs="10" sm="10" md="9" lg="11">
         <div class="teachers mt-3">
-          <ul class="">
+          <ul>
             <li
               v-for="teacher in TEACHERS.filter(teacher =>
                 teacher.name
@@ -44,8 +44,8 @@
           </ul>
         </div>
       </b-col>
-      <b-col xs="1" sm="1" md="3" lg="1">
-        <!-- <section> -->
+      <!-- <b-col xs="1" sm="1" md="3" lg="1">
+
         <ul class="alpha-letters-list">
           <li
             v-for="(letter, index) in letters"
@@ -57,8 +57,7 @@
             <i></i>
           </li>
         </ul>
-        <!-- </section> -->
-      </b-col>
+      </b-col> -->
     </b-row>
   </div>
 </template>
@@ -103,7 +102,8 @@ export default class TeachersComponent extends Vue {
   private selectedLetter(letter: any) {
     const teachers = this.$store.getters[TEACHERS];
     const id = teachers.find((t: any) => t.lastName[0] === letter).id;
-    const element = document.getElementById(id);
+    const element: HTMLElement =
+      document.getElementById(id) || HTMLElement.prototype;
     console.log(element);
 
     element.scrollIntoView();

@@ -16,7 +16,7 @@ import { mapGetters } from 'vuex';
 import { ROOMS, SELECTED_TEACHER } from '../../store/modules/main/getters';
 import {
   GET_ROOMS_ACTION,
-  GET_TEACHER_SCHEDULE_ACTION,
+  GET_SCHEDULE_ACTION,
 } from '@/store/modules/main/actions';
 
 // component setup
@@ -35,7 +35,7 @@ export default class RoomsComponent extends Vue {
   }
   private async test() {
     const id = await this.$store.getters[SELECTED_TEACHER];
-    this.$store.dispatch(GET_TEACHER_SCHEDULE_ACTION, {
+    this.$store.dispatch(GET_SCHEDULE_ACTION, {
       id,
       mode: 'prof',
     });

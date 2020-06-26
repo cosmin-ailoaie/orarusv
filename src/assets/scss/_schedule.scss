@@ -4,8 +4,8 @@
 }
 .schedule table {
   border-collapse: separate;
-  border-spacing: 5px;
-
+  border-spacing: 5px 0px;
+  border: none;
   margin: auto;
   table-layout: fixed;
   overflow: hidden;
@@ -17,7 +17,7 @@
   //     width: calc(100% - 200px);
   //   }
   @media (max-width: 768px) {
-    display: flex;
+    // display: flex;
     width: 100%;
     // border-collapse: collapse;
     // border-spacing: 5px 0px;
@@ -29,6 +29,7 @@
       text-transform: uppercase;
       font-weight: bold;
       border: 1px solid black;
+
       width: 140px;
       //   @media (max-width: 768px) {
       //     width: calc(100% - 80px);
@@ -42,25 +43,27 @@
   tbody {
     .headDay {
       z-index: 1;
+      border-top: none;
     }
     tr {
       &:nth-child(4n),
       &:nth-child(4n-1) {
-        background: white;
+        background-color: white;
       }
       &:nth-child(4n-2),
       &:nth-child(4n-3) {
-        background: #eaeae6;
+        background-color: #eaeae6;
       }
       //   .bodyDay {
       //     width: 100%;
       //   }
       td {
         border: 1px solid black;
+        border-top: none;
         color: black;
         width: 140px;
         @media (max-width: 768px) {
-          width: calc(100%-20px);
+          width: 80%;
         }
         position: relative;
         max-height: 80px;
@@ -79,9 +82,9 @@
           overflow: hidden;
           text-overflow: ellipsis;
         }
-        &:hover {
-          border: 1px solid $color-c1-blue;
-        }
+        // &:hover {
+        //   border: 1px solid $color-c1-blue;
+        // }
 
         &:first-child {
           border: 1px solid black;
@@ -91,6 +94,18 @@
           text-align: center;
           vertical-align: middle;
           width: 120px;
+          @media (max-width: 768px) {
+            // display: flex;
+            width: 10%;
+            // border-collapse: collapse;
+            // border-spacing: 5px 0px;
+          }
+          @media (max-width: 576px) {
+            // display: flex;
+            width: 20%;
+            // border-collapse: collapse;
+            // border-spacing: 5px 0px;
+          }
         }
         &:hover {
           .tooltiptext {
@@ -146,21 +161,29 @@
   width: 400px !important;
 }
 
-table.legendTable {
+tr.legends {
   @media (max-width: 768px) {
     display: none;
   }
+  background-color: transparent !important;
 }
 button.inc {
   @media (min-width: 768px) {
     display: none;
   }
 }
-.blur {
-  filter: blur(1.5rem);
-  z-index: -1;
-  -webkit-filter: blur(1.5rem);
+
+//   filter: blur(1.5rem);
+//   z-index: -1;
+//   -webkit-filter: blur(1.5rem);
+td.blur {
+  translate: tanslateX(1rem);
+  display: none;
 }
+
 .test {
   background-color: red;
+}
+td.interval {
+  max-height: 30px !important;
 }

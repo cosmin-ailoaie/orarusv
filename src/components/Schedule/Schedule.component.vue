@@ -1,12 +1,17 @@
 <template>
   <div class="schedule mt-5">
-    <h5 v-if="SCHEDULE.length > 0">
+    <h5 v-if="SCHEDULE.length > 0 && mode === 'prof'">
       {{ SCHEDULE[0].teachingDegreeName }}
       {{ SCHEDULE[0].doctoralSituationsName }}
       {{ SCHEDULE[0].activityTypesName }} {{ SCHEDULE[0].teacherLastName }}
       {{ SCHEDULE[0].teacherFirstName }}
     </h5>
-    <table class="scheduleTable" :style="listLength">
+    <h5 v-if="SCHEDULE.length > 0 && mode === 'grupa'">
+      nume grupa aici
+    </h5>
+
+    <table class="scheduleTable">
+      <!-- :style="listLength" -->
       <tbody>
         <tr class="day">
           <td></td>
@@ -15,42 +20,47 @@
             :key="day.dID"
             class="headDay"
             :class="day.dId != dayToShow && windowWidth < 768 ? 'blur' : ''"
-            :style="listPosition"
           >
+            <!-- :style="listPosition" -->
             {{ day.name }}
           </td>
         </tr>
+
         <tr v-for="hour in hours" :key="hour.hId" class="hour">
           <td class="interval">{{ hour.name }}</td>
           <template v-for="day in days">
             <CourseComponent
               :key="day.dId"
               :courses="Courses(day.dId, hour.hId)"
-              v-if="!rowSpanTest(day.dId, hour.hId)"
+              v-if="!rowSpan(day.dId, hour.hId)"
               class="bodyDay"
               :class="day.dId != dayToShow && windowWidth < 768 ? 'blur' : ''"
-              :style="listPosition"
-            ></CourseComponent>
+            >
+              <!-- :style="listPosition" -->
+            </CourseComponent>
           </template>
         </tr>
-      </tbody>
-    </table>
-    <br />
-    <table class="legendTable">
-      <tbody>
-        <tr>
+
+        <tr class="legends">
+          <td v-for="day in days.length + 1" :key="day.dID">-</td>
+        </tr>
+        <tr class="legends">
           <td style="border: none;background-color:transparent">Legenda:</td>
-          <td style="border: none;background-color:transparent"></td>
+          <!-- <td style="border: none;background-color:transparent"></td> -->
           <td style="background-color:#ccbbbb">seminar</td>
           <td style="background-color:#ccddcc">laborator</td>
           <td style="background-color:#eeeeee">consultatii</td>
           <td style="background-color:#ccddcc">proiect</td>
           <td style="background-color:#9999aa">curs</td>
-          <td style="border: none;background-color:transparent"></td>
+          <!-- <td style="border: none;background-color:transparent"></td> -->
         </tr>
       </tbody>
     </table>
-    <button class="inc" @click="dayToShow == 7 ? (dayToShow = 1) : dayToShow++">
+
+    <button
+      class="inc"
+      @click="dayToShow == days.length ? (dayToShow = 1) : dayToShow++"
+    >
       Inc Day
     </button>
   </div>
@@ -61,11 +71,11 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 
-import { SCHEDULE } from '@/store/modules/main/getters';
+import { SCHEDULE, WEEKEND } from '@/store/modules/main/getters';
 import CourseComponent from '@/components/Schedule/Course.component.vue';
 import { ROUTES } from '@/constants';
 import {
-  GET_TEACHER_SCHEDULE_ACTION,
+  GET_SCHEDULE_ACTION,
   RESET_SCHEDULE_ACTION,
 } from '../../store/modules/main/actions';
 
@@ -74,7 +84,7 @@ import {
   components: {
     CourseComponent,
   },
-  computed: mapGetters({ SCHEDULE }),
+  computed: mapGetters({ SCHEDULE, WEEKEND }),
 })
 export default class ScheduleComponent extends Vue {
   // private
@@ -176,20 +186,27 @@ export default class ScheduleComponent extends Vue {
     startX: 0,
     endX: 0,
   };
+  private mode: any = '';
+  private id: any = 0;
   constructor() {
     super();
   }
   private async created() {
     this.windowWidth = window.innerWidth;
-    const mode = this.$route.query.mode;
-    const id = this.$route.query.id;
-    if (mode === 'prof') {
-      await this.$store.dispatch(GET_TEACHER_SCHEDULE_ACTION, {
-        id,
-        mode: 'prof',
-      });
-    }
-    console.log(this.$store.getters[SCHEDULE]);
+    this.mode = this.$route.query.mode;
+    this.id = this.$route.query.id;
+    // this.dayToShow = 1;
+    await this.$store.dispatch(GET_SCHEDULE_ACTION, {
+      id: this.id,
+      mode: this.mode,
+    });
+    // document.title = this.$store.getters[SCHEDULE][0].teacherLastName;
+    this.days = this.$store.getters[WEEKEND]
+      ? this.days
+      : this.days.slice(0, this.days.length - 2);
+    const today = new Date().getDay();
+    this.dayToShow = today > this.days.length ? 1 : today;
+    // console.log(this.$store.getters[SCHEDULE]);
     this.$el.addEventListener('touchstart', (event: any) =>
       this.touchstart(event),
     );
@@ -205,7 +222,7 @@ export default class ScheduleComponent extends Vue {
       );
     };
   }
-  get rowSpanTest() {
+  get rowSpan() {
     return (day: any, hour: any) => {
       return (
         this.$store.getters[SCHEDULE].filter(
@@ -251,9 +268,13 @@ export default class ScheduleComponent extends Vue {
     }
 
     if (this.touch.endX < this.touch.startX) {
-      this.dayToShow < 7 ? this.dayToShow++ : (this.dayToShow = 1);
+      this.dayToShow < this.days.length
+        ? this.dayToShow++
+        : (this.dayToShow = 1);
     } else {
-      this.dayToShow > 1 ? this.dayToShow-- : (this.dayToShow = 7);
+      this.dayToShow > 1
+        ? this.dayToShow--
+        : (this.dayToShow = this.days.length);
     }
   }
 }

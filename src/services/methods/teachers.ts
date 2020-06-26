@@ -5,7 +5,7 @@ export const getTeachersList = async () => {
   const response: any = await httpClient.get(`${teachers.main}`);
   return response.data;
 };
-export const getTeacherSchedule = async (payload: any) => {
+export const getSchedule = async (payload: any) => {
   console.log(payload);
 
   const response: any = await httpClient.get(

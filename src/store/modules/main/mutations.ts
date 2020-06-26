@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { set } from '@/services/stateSetter';
 
 export const GET_FACULTIES_MUTATION = 'GET_FACULTIES_MUTATION';
+export const GET_SEMIGROUPS_MUTATION = 'GET_SEMIGROUPS_MUTATION';
 export const GET_ROOMS_MUTATION = 'GET_ROOMS_MUTATION';
 export const GET_TEACHERS_MUTATION = 'GET_TEACHERS_MUTATION';
 export const SELECT_TEACHER_MUTATION = 'SELECT_TEACHER_MUTATION';
@@ -16,10 +17,40 @@ export const RESET_SCHEDULE_MUTATION = 'RESET_SCHEDULE_MUTATION';
 export const RESET_STATE_MUTATION = 'RESET_STATE_MUTATION';
 
 export const mutations = {
+  GET_SEMIGROUPS_MUTATION: (state: State, payload: any) => {
+    if (payload.semigroups.length > 0) {
+      const listSplited = payload.semigroups.split('<br />');
+      const list = listSplited.slice(1, listSplited.length - 1);
+      const json: any = [];
+
+      list.forEach((element: any) => {
+        const line = element.split(';');
+        const obj = {
+          id: line[0],
+          type: line[1],
+          facultyId: line[2],
+          specialityShortName: line[3],
+          year: line[4],
+          groupNumber: line[5],
+          subGroupLetter: line[6],
+        };
+
+        json.push(obj);
+      });
+      state.semigroups = json;
+    } else {
+      state.semigroups = [];
+      state.alert = payload.alert;
+      state.hasError = payload.hasError;
+    }
+  },
   GET_FACULTIES_MUTATION: (state: State, payload: any) => {
     if (payload.faculties.length > 0) {
-      const list = payload.faculties.split('<br />').slice(1, 13);
+      const listSplited = payload.faculties.split('<br />');
+      const list = listSplited.slice(1, listSplited.length - 1);
       const json: any = [];
+      console.log(list);
+
       list.forEach((element: any) => {
         const line = element.split(';');
         const obj = {
@@ -31,6 +62,7 @@ export const mutations = {
         json.push(obj);
       });
       state.faculties = json;
+      console.log(json);
     } else {
       state.faculties = [];
       state.alert = payload.alert;
@@ -39,7 +71,8 @@ export const mutations = {
   },
   GET_TEACHERS_MUTATION: (state: State, payload: any) => {
     if (payload.teachers.length > 0) {
-      const list = payload.teachers.split('<br />').slice(1, 571);
+      const listSplited = payload.teachers.split('<br />');
+      const list = listSplited.slice(1, listSplited.length - 1);
       const json: any = [];
       list.forEach((element: any) => {
         const line = element.split(';');
@@ -125,8 +158,12 @@ export const mutations = {
         json.push(obj);
       });
       state.schedule = json;
+      state.weekend = json.find((course: any) => course.courseDayNumber > 5)
+        ? true
+        : false;
     } else {
       state.schedule = [];
+      state.weekend = false;
       state.alert = payload.alert;
       state.hasError = payload.hasError;
     }

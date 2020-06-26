@@ -2,9 +2,11 @@ export interface State {
   teachers: [];
   selectedTeacher: number;
   faculties: [];
+  semigroups: [];
   rooms: [];
   schedule: [];
-  isLoading: false;
-  hasError: false;
+  isLoading: boolean;
+  hasError: boolean;
+  weekend: boolean;
   alert: {};
 }

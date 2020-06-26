@@ -100,7 +100,7 @@ import { mapGetters } from 'vuex';
 
 // import { ROUTES } from '@/constants';
 // import {
-//   GET_TEACHER_SCHEDULE_ACTION,
+//   GET_SCHEDULE_ACTION,
 //   RESET_SCHEDULE_ACTION,
 // } from '../../store/modules/main/actions';
 
