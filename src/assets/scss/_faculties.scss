@@ -3,9 +3,59 @@
   .facultyItem {
     font-size: 1.5rem;
     cursor: pointer;
+    // text-align: center;
   }
   .mijloc {
-    margin-left: auto;
-    margin-right: auto;
+    // float: ;
+    // text-align: center;
+  }
+  ul.TekList {
+    // width: 80%;
+    position: relative;
+    list-style: none;
+    // overflow-x: hidden;
+    // overflow-y: scroll;
+    &.isMobile {
+      li {
+        text-align: center;
+        padding-left: 0%;
+        padding-right: 0%;
+        &.post {
+          padding-left: 0%;
+          padding-right: 0%;
+        }
+        &.dspp {
+          background-color: transparent;
+        }
+      }
+    }
+    li {
+      // text-align: justify;
+      padding: 2px 0px;
+      // margin: 5px;
+      // margin: auto;
+
+      text-align: left;
+      padding-left: 20%;
+      padding-right: 10%;
+      &.post {
+        padding-left: 40%;
+      }
+
+      transition: transform 0.2s;
+      @media (max-width: 768px) {
+        background-color: white;
+      }
+      font-size: 1.2rem;
+      color: black;
+      border-radius: 10px;
+      &:hover {
+        transform: scale(1.05);
+        z-index: 100;
+        background: $color-c1-blue;
+        color: white;
+        box-shadow: 0 5px 25px rgba(#000, $alpha: 0.1);
+      }
+    }
   }
 }

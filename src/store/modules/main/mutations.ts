@@ -76,14 +76,18 @@ export const mutations = {
       const json: any = [];
       list.forEach((element: any) => {
         const line = element.split(';');
-        const obj = {
-          id: line[0],
-          lastName: line[1],
-          firstName: line[2],
-          faculty: line[3],
-          name: `${line[1]} ${line[2]}`,
-        };
-        json.push(obj);
+        if (line[1] || line[2]) {
+          const obj = {
+            id: line[0],
+            lastName: line[1],
+            firstName: line[2],
+            faculty: line[3],
+            name: `${line[1]} ${line[2]}`,
+          };
+          json.push(obj);
+        } else {
+          console.log('empty');
+        }
       });
       state.teachers = json.sort((a: any, b: any) =>
         a.name.toLowerCase().localeCompare(b.name.toLowerCase()),

@@ -1,38 +1,56 @@
 <template>
   <div class="mt-5 facultiesList">
     <transition name="router-anim" mode="out-in">
-      <ul v-if="facultyId === 0 && semiGroupId === 0" class="mijloc">
+      <ul
+        class="TekList"
+        v-if="facultyId === 0 && semiGroupId === 0"
+        :class="isMobile ? 'isMobile' : ''"
+      >
         <router-link :to="ROUTES.HOME.path">
           <!-- <li> -->
-          <i class="fas fa-arrow-left"></i>
+          <div class="facultyItem text-primary">
+            <i class="fas fa-arrow-left fa-lg"></i>
+          </div>
           <!-- </li> -->
         </router-link>
 
-        <li v-for="faculty in FACULTIES" :key="faculty.id" class="my-2 ">
+        <li v-for="faculty in FACULTIES" :key="faculty.id" class="my-2">
           <div class="facultyItem" @click="toFaculty(faculty.id)">
             {{ isMobile ? faculty.shortName : faculty.name }}
           </div>
         </li>
-        <li>
-          Departamentul de Specialitate cu Profil Psihopedagogic:
+        <li class="my-2 dspp">
+          <div class="facultyItem">
+            {{
+              isMobile
+                ? 'DSPP:'
+                : 'Departamentul de Specialitate cu Profil Psihopedagogic:'
+            }}
+          </div>
         </li>
-        <li>
-          <a href="http://www.dppd.usv.ro/dppd2/pdf/2018/Niv%20I%20postuniv.pdf"
-            >postuniversitar nivel 1</a
-          >
+
+        <li class="my-2 post">
+          <div class="facultyItem">
+            <a
+              href="http://www.dppd.usv.ro/dppd2/pdf/2018/Niv%20I%20postuniv.pdf"
+              >postuniversitar nivel 1</a
+            >
+          </div>
         </li>
-        <li>
-          <a
-            href="http://www.dppd.usv.ro/dppd2/pdf/2018/Niv%20II%20Postuniv.pdf"
-            >postuniversitar nivel 2</a
-          >
+        <li class="my-2 post">
+          <div class="facultyItem">
+            <a
+              href="http://www.dppd.usv.ro/dppd2/pdf/2018/Niv%20II%20Postuniv.pdf"
+              >postuniversitar nivel 2</a
+            >
+          </div>
         </li>
       </ul>
     </transition>
     <transition name="router-anim" mode="out-in">
-      <ul v-if="facultyId > 0 && semiGroupId === 0">
+      <!-- <ul v-if="facultyId > 0 && semiGroupId === 0">
         <li @click="facultyId = 0">
-          <i class="fas fa-arrow-left"></i>
+          <i class="fas fa-arrow-left fa-lg"></i>
         </li>
         <li
           v-for="group in SEMIGROUPS.filter(
@@ -48,12 +66,40 @@
             }}
           </div>
         </li>
-      </ul>
+      </ul> -->
+      <b-tabs pills class="semigrupe" v-if="facultyId > 0 && semiGroupId === 0">
+        <b-tab
+          class="subGroups"
+          style="color: pink"
+          v-for="(subGroup, index) in subGroups(facultyId)"
+          :key="index"
+          :title="subGroup[0].specialityShortName"
+        >
+          <div class="subgroup">
+            <b-card>
+              <ul class="TekList">
+                <li
+                  v-for="group in subGroup"
+                  :key="group.id"
+                  class="my-2 "
+                  @click="goToSchedule(group.id)"
+                >
+                  <div class="facultyItem">
+                    {{
+                      `Anul ${group.year}: ${group.groupNumber}${group.subGroupLetter}`
+                    }}
+                  </div>
+                </li>
+              </ul>
+            </b-card>
+          </div>
+        </b-tab>
+      </b-tabs>
     </transition>
-    <transition name="router-anim" mode="out-in">
+    <!-- 
       <ul v-if="semiGroupId > 0">
         <li @click="semiGroupId = 0">
-          <i class="fas fa-arrow-left"></i>
+          <i class="fas fa-arrow-left fa-lg"></i>
         </li>
         <li
           v-for="group in SEMIGROUPS.filter(
@@ -69,8 +115,7 @@
             }}
           </div>
         </li>
-      </ul>
-    </transition>
+      </ul> -->
   </div>
 </template>
 
@@ -116,44 +161,40 @@ export default class FacultiesComponent extends Vue {
   private goToSchedule(id: number) {
     this.$router.push(ROUTES.SCHEDULE.schedule(id, 'grupa'));
   }
+  private subGroups(facultyId: number) {
+    const semigroupsOriginal = this.$store.getters[SEMIGROUPS];
+    const semigroups = semigroupsOriginal.filter(
+      (group: any) => group.facultyId === facultyId,
+    );
+    // console.log(semigroups);
+
+    const groupBy = (objectArray: any, ...properties: any) => {
+      return [
+        ...Object.values(
+          objectArray.reduce((accumulator: any, object: any) => {
+            const key = JSON.stringify(
+              properties.map((x: any) => object[x] || null),
+            );
+
+            if (!accumulator[key]) {
+              accumulator[key] = [];
+            }
+            accumulator[key].push(object);
+            return accumulator;
+          }, {}),
+        ),
+      ];
+    };
+
+    const subGroup = groupBy(semigroups, 'specialityShortName');
+    console.log(subGroup);
+    return subGroup;
+    // return semigroups.map((group:any)=>{
+
+    // })
+  }
 }
 </script>
 <style lang="scss">
 @import '@/assets/scss/_faculties.scss';
-.facultiesList {
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  // justify-self: start;
-}
-ul {
-  // width: 100%;
-  position: relative;
-  list-style: none;
-  // overflow-x: hidden;
-  // overflow-y: scroll;
-  li {
-    // text-align: justify;
-    padding: 2px 0px;
-    // margin: 5px;
-    // margin: auto;
-
-    text-align: center;
-    // width: 100%;
-    transition: transform 0.2s;
-    @media (max-width: 768px) {
-      background-color: white;
-    }
-    font-size: 1.2rem;
-    color: black;
-    border-radius: 10px;
-    &:hover {
-      transform: scale(1.05);
-      z-index: 100;
-      background: $color-c1-blue;
-      color: white;
-      box-shadow: 0 5px 25px rgba(#000, $alpha: 0.1);
-    }
-  }
-}
 </style>

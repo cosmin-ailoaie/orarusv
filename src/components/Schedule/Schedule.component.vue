@@ -46,13 +46,11 @@
         </tr>
         <tr class="legends">
           <td style="border: none;background-color:transparent">Legenda:</td>
-          <!-- <td style="border: none;background-color:transparent"></td> -->
           <td style="background-color:#ccbbbb">seminar</td>
           <td style="background-color:#ccddcc">laborator</td>
           <td style="background-color:#eeeeee">consultatii</td>
           <td style="background-color:#ccddcc">proiect</td>
           <td style="background-color:#9999aa">curs</td>
-          <!-- <td style="border: none;background-color:transparent"></td> -->
         </tr>
       </tbody>
     </table>
@@ -63,6 +61,7 @@
     >
       Inc Day
     </button>
+    <!-- <b-table striped hover :items="SCHEDULE"></b-table> -->
   </div>
 </template>
 
