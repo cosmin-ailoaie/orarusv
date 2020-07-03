@@ -10,6 +10,7 @@ export const GET_SEMIGROUPS_MUTATION = 'GET_SEMIGROUPS_MUTATION';
 export const GET_ROOMS_MUTATION = 'GET_ROOMS_MUTATION';
 export const GET_TEACHERS_MUTATION = 'GET_TEACHERS_MUTATION';
 export const SELECT_TEACHER_MUTATION = 'SELECT_TEACHER_MUTATION';
+export const SELECT_SEMIGROUP_MUTATION = 'SELECT_SEMIGROUP_MUTATION';
 export const GET_SCHEDULE_MUTATION = 'GET_SCHEDULE_MUTATION';
 
 export const IS_LOADING_MUTATION = 'IS_LOADING_MUTATION';
@@ -101,6 +102,9 @@ export const mutations = {
   SELECT_TEACHER_MUTATION: (state: State, payload: any) => {
     set(state, payload);
   },
+  SELECT_SEMIGROUP_MUTATION: (state: State, payload: any) => {
+    set(state, payload);
+  },
   GET_ROOMS_MUTATION: (state: State, payload: any) => {
     if (payload.rooms.length > 0) {
       const list = payload.rooms.split('<br />');
@@ -179,5 +183,7 @@ export const mutations = {
 
   RESET_SCHEDULE_MUTATION: (state: State, payload: any) => {
     state.schedule = initialState().schedule;
+    state.selectedTeacher = initialState().selectedTeacher;
+    state.selectedSemiGroup = initialState().selectedSemiGroup;
   },
 };

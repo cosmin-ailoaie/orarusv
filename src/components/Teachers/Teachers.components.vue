@@ -2,14 +2,18 @@
   <div class="teachersList">
     <b-row class="mt-4">
       <b-col>
-        <div class="fakeButton">
-          Inapoi
-        </div>
+        <router-link :to="ROUTES.HOME.path">
+          <div class="fakeButton">
+            Inapoi
+          </div>
+        </router-link>
       </b-col>
       <b-col>
-        <div class="fakeButton">
-          Acasa
-        </div>
+        <router-link :to="ROUTES.HOME.path">
+          <div class="fakeButton">
+            Acasa
+          </div>
+        </router-link>
       </b-col>
     </b-row>
     <b-input-group size="sm mt-3">
@@ -37,9 +41,9 @@
               )"
               :key="teacher.id"
               :id="teacher.id"
-              @click="selectTeacher(teacher.id)"
+              @click="selectTeacher(teacher.id, teacher.name)"
             >
-              {{ teacher.lastName }} {{ teacher.firstName }}
+              {{ teacher.name }}
             </li>
           </ul>
         </div>
@@ -96,7 +100,8 @@ export default class TeachersComponent extends Vue {
     }
     return letters;
   }
-  private async selectTeacher(id: number) {
+  private async selectTeacher(id: number, name: string) {
+    this.$store.dispatch(SELECT_TEACHER_ACTION, { name });
     this.$router.push(ROUTES.SCHEDULE.schedule(id, 'prof'));
   }
   private selectedLetter(letter: any) {

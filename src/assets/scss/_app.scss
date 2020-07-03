@@ -21,6 +21,27 @@ body {
   position: relative;
   height: 100vh;
   margin: 0;
+  .fakeButton {
+    border-radius: 50px;
+    background-color: $color-white;
+    font-weight: bolder;
+    font-size: 1.6rem;
+    color: black;
+    padding: 10px 50px;
+    cursor: pointer;
+    @media (max-width: 768px) {
+      font-size: 1.4rem;
+      padding: 10px 15px;
+    }
+    @media (max-width: 992px) {
+      // font-size: 1.4rem;
+      padding: 10px 15px;
+    }
+    &:hover {
+      background-color: $color-c1-blue;
+      color: $color-white;
+    }
+  }
 }
 
 .router-anim-enter-active {

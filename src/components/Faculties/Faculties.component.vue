@@ -67,34 +67,49 @@
           </div>
         </li>
       </ul> -->
-      <b-tabs pills class="semigrupe" v-if="facultyId > 0 && semiGroupId === 0">
-        <b-tab
-          class="subGroups"
-          style="color: pink"
-          v-for="(subGroup, index) in subGroups(facultyId)"
-          :key="index"
-          :title="subGroup[0].specialityShortName"
-        >
-          <div class="subgroup">
-            <b-card>
-              <ul class="TekList">
-                <li
-                  v-for="group in subGroup"
-                  :key="group.id"
-                  class="my-2 "
-                  @click="goToSchedule(group.id)"
-                >
-                  <div class="facultyItem">
-                    {{
-                      `Anul ${group.year}: ${group.groupNumber}${group.subGroupLetter}`
-                    }}
-                  </div>
-                </li>
-              </ul>
-            </b-card>
-          </div>
-        </b-tab>
-      </b-tabs>
+      <div v-if="facultyId > 0 && semiGroupId === 0">
+        <ul>
+          <li @click="facultyId = 0">
+            <div class="facultyItem text-primary">
+              <i class="fas fa-arrow-left fa-lg"></i>
+            </div>
+          </li>
+        </ul>
+        <b-tabs pills class="semigrupe">
+          <b-tab
+            class="subGroups mt-3"
+            v-for="(subGroup, index) in subGroups(facultyId)"
+            :key="index"
+            :title="subGroup[0].specialityShortName"
+          >
+            <div class="subgroup">
+              <b-card>
+                <ul class="TekList">
+                  <li
+                    v-for="group in subGroup"
+                    :key="group.id"
+                    class="my-2 "
+                    @click="
+                      goToSchedule(
+                        group.id,
+                        group.year,
+                        group.groupNumber,
+                        group.subGroupLetter,
+                      )
+                    "
+                  >
+                    <div class="facultyItem">
+                      {{
+                        `Anul ${group.year}: ${group.groupNumber}${group.subGroupLetter}`
+                      }}
+                    </div>
+                  </li>
+                </ul>
+              </b-card>
+            </div>
+          </b-tab>
+        </b-tabs>
+      </div>
     </transition>
     <!-- 
       <ul v-if="semiGroupId > 0">
@@ -123,10 +138,15 @@
 // vue
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
-import { FACULTIES, SEMIGROUPS } from '@/store/modules/main/getters';
+import {
+  FACULTIES,
+  SEMIGROUPS,
+  SELECTED_SEMIGROUP,
+} from '@/store/modules/main/getters';
 import {
   GET_FACULTIES_ACTION,
   GET_SEMIGROUPS_ACTION,
+  SELECT_SEMIGROUP_ACTION,
 } from '@/store/modules/main/actions';
 import { ROUTES } from '@/constants/routes';
 
@@ -158,7 +178,15 @@ export default class FacultiesComponent extends Vue {
   private toFaculty(id: number) {
     this.facultyId = id;
   }
-  private goToSchedule(id: number) {
+  private goToSchedule(
+    id: number,
+    year: number,
+    groupNumber: number,
+    subGroupLetter: string,
+  ) {
+    this.$store.dispatch(SELECT_SEMIGROUP_ACTION, {
+      name: `Anul ${year}: ${groupNumber}${subGroupLetter}`,
+    });
     this.$router.push(ROUTES.SCHEDULE.schedule(id, 'grupa'));
   }
   private subGroups(facultyId: number) {

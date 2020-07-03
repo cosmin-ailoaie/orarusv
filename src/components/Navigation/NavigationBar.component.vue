@@ -15,15 +15,19 @@
           <label class="switch">
             <input type="checkbox" checked />
             <span class="slider round"></span>
+            NIGHT/DAY MODE TODO
           </label>
           <b-nav-item :to="ROUTES.HOME.path" exact>
-            Studenți
+            Prima pagină
           </b-nav-item>
-          <b-nav-item :to="ROUTES.HOME.path" exact>
-            Săli
+          <b-nav-item :to="ROUTES.FAVORITES.path" exact>
+            Favorite
           </b-nav-item>
-          <b-nav-item :to="ROUTES.HOME.path" exact>
+          <b-nav-item :to="ROUTES.FACULTIES.path" exact>
             Facultăți
+          </b-nav-item>
+          <b-nav-item :to="ROUTES.TEACHERS.path" exact>
+            Profesori
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>

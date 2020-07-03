@@ -17,6 +17,7 @@ import {
   GET_SCHEDULE_MUTATION,
   GET_TEACHERS_MUTATION,
   SELECT_TEACHER_MUTATION,
+  SELECT_SEMIGROUP_MUTATION,
 } from './mutations';
 import { getSemiGroupsList } from '@/services/methods/faculties';
 
@@ -25,6 +26,7 @@ export const GET_SEMIGROUPS_ACTION = `${STORE_MAIN_MODULE}/GET_SEMIGROUPS_ACTION
 export const GET_ROOMS_ACTION = `${STORE_MAIN_MODULE}/GET_ROOMS_ACTION`;
 export const GET_TEACHERS_ACTION = `${STORE_MAIN_MODULE}/GET_TEACHERS_ACTION`;
 export const SELECT_TEACHER_ACTION = `${STORE_MAIN_MODULE}/SELECT_TEACHER_ACTION`;
+export const SELECT_SEMIGROUP_ACTION = `${STORE_MAIN_MODULE}/SELECT_SEMIGROUP_ACTION`;
 export const GET_SCHEDULE_ACTION = `${STORE_MAIN_MODULE}/GET_SCHEDULE_ACTION`;
 export const RESET_SCHEDULE_ACTION = `${STORE_MAIN_MODULE}/RESET_SCHEDULE_ACTION`;
 export const RESET_STATE_ACTION = `${STORE_MAIN_MODULE}/RESET_STATE_ACTION`;
@@ -112,13 +114,36 @@ export const actions = {
   },
   SELECT_TEACHER_ACTION: async ({ commit }: any, payload: any) => {
     try {
+      console.log(payload);
+
       commit(IS_LOADING_MUTATION, { isLoading: true });
-      commit(SELECT_TEACHER_MUTATION, { selectedTeacher: payload.id });
+      commit(SELECT_TEACHER_MUTATION, { selectedTeacher: payload.name });
       commit(IS_LOADING_MUTATION, { isLoading: false });
     } catch (error) {
       console.log(error);
       commit(SELECT_TEACHER_MUTATION, {
-        selectedTeacher: 0,
+        selectedTeacher: '',
+        hasError: true,
+        alert: {
+          show: true,
+          type: ALERT.DANGER,
+          message: ERRORS.GET_DATA(),
+        },
+      });
+      commit(IS_LOADING_MUTATION, { isLoading: false });
+    }
+  },
+  SELECT_SEMIGROUP_ACTION: async ({ commit }: any, payload: any) => {
+    try {
+      console.log(payload);
+
+      commit(IS_LOADING_MUTATION, { isLoading: true });
+      commit(SELECT_SEMIGROUP_MUTATION, { selectedSemiGroup: payload.name });
+      commit(IS_LOADING_MUTATION, { isLoading: false });
+    } catch (error) {
+      console.log(error);
+      commit(SELECT_SEMIGROUP_MUTATION, {
+        selectedSemiGroup: '',
         hasError: true,
         alert: {
           show: true,

@@ -37,6 +37,14 @@ export const ROUTES = [
     },
   },
   {
+    path: '/favorite',
+    name: 'Orare Favorite',
+    component: () => import('@/views/Favorites/Favorites.vue'),
+    meta: {
+      requiresAuth: false,
+    },
+  },
+  {
     path: '/orar',
     name: 'Orar',
     component: () => import('@/views/Schedule/Schedule.vue'),

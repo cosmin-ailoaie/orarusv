@@ -1,6 +1,7 @@
 export interface State {
   teachers: [];
-  selectedTeacher: number;
+  selectedTeacher: string;
+  selectedSemiGroup: string;
   faculties: [];
   semigroups: [];
   rooms: [];

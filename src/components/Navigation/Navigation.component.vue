@@ -33,10 +33,10 @@ export default class NavigationComponent extends Vue {
   private readonly APP: {} = APP;
   private readonly ROUTES: {} = ROUTES;
   private options = [
-    { name: 'FAVORITE', path: '/' },
-    { name: 'FACULTATI', path: ROUTES.FACULTIES.path },
+    { name: 'FAVORITE', path: ROUTES.FAVORITES.path },
+    { name: 'FACULTĂȚI', path: ROUTES.FACULTIES.path },
     { name: 'PROFESORI', path: ROUTES.TEACHERS.path },
-    { name: 'SALI', path: ROUTES.ROOMS.path },
+    { name: 'SĂLI', path: ROUTES.ROOMS.path },
   ];
 
   constructor() {

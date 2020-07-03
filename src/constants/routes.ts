@@ -15,6 +15,10 @@ export const ROUTES = {
     path: '/profesori',
     name: 'Profesori',
   },
+  FAVORITES: {
+    path: '/favorite',
+    name: 'Orare favorite',
+  },
   ROOMS: {
     path: '/sali',
     name: 'Sali',

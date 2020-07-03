@@ -2,7 +2,8 @@ import { State } from '@/models/main/state.ts';
 
 export const initialState = (): State => ({
   teachers: [],
-  selectedTeacher: -1,
+  selectedTeacher: '',
+  selectedSemiGroup: '',
   faculties: [],
   semigroups: [],
   rooms: [],

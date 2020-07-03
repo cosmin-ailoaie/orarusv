@@ -1,15 +1,68 @@
 <template>
   <div class="schedule mt-5">
+    <b-row align-h="between">
+      <b-col
+        cols="6"
+        sm="6"
+        lg="3"
+        md="3"
+        xl="3"
+        class="mb-xl-5 mb-lg-5 mb-md-3 mb-sm-2 mb-2"
+        @click="$router.go(-1)"
+      >
+        <div class="fakeButton">
+          Înapoi
+        </div>
+      </b-col>
+      <b-col
+        cols="6"
+        sm="6"
+        lg="3"
+        md="3"
+        xl="3"
+        class="mb-xl-5 mb-lg-5 mb-md-3 mb-sm-2 mb-2"
+      >
+        <router-link :to="ROUTES.HOME.path">
+          <div class="fakeButton">
+            Acasă
+          </div>
+        </router-link>
+      </b-col>
+      <b-col
+        cols="6"
+        sm="6"
+        lg="3"
+        md="3"
+        xl="3"
+        class="mb-xl-5 mb-lg-5 mb-md-3 mb-sm-2 mb-2"
+      >
+        <div class="fakeButton">
+          .PDF
+        </div>
+      </b-col>
+      <b-col
+        cols="6"
+        sm="6"
+        lg="3"
+        md="3"
+        xl="2"
+        class="mb-xl-5 mb-lg-5 mb-md-3 mb-sm-2 mb-2"
+      >
+        <div class="fakeButton starButton" @click="makeFav()">
+          <i v-if="star || fav" class="fas fa-star"></i>
+          <i v-else class="far fa-star noStarButton"></i>
+        </div>
+      </b-col>
+    </b-row>
+    <h5 v-if="SCHEDULE.length > 0 && mode === 'grupa'">
+      {{ SELECTED_SEMIGROUP }}
+    </h5>
     <h5 v-if="SCHEDULE.length > 0 && mode === 'prof'">
       {{ SCHEDULE[0].teachingDegreeName }}
       {{ SCHEDULE[0].doctoralSituationsName }}
       {{ SCHEDULE[0].activityTypesName }} {{ SCHEDULE[0].teacherLastName }}
       {{ SCHEDULE[0].teacherFirstName }}
     </h5>
-    <h5 v-if="SCHEDULE.length > 0 && mode === 'grupa'">
-      nume grupa aici
-    </h5>
-
     <table class="scheduleTable">
       <!-- :style="listLength" -->
       <tbody>
@@ -44,6 +97,7 @@
         <tr class="legends">
           <td v-for="day in days.length + 1" :key="day.dID">-</td>
         </tr>
+
         <tr class="legends">
           <td style="border: none;background-color:transparent">Legenda:</td>
           <td style="background-color:#ccbbbb">seminar</td>
@@ -70,25 +124,37 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 
-import { SCHEDULE, WEEKEND } from '@/store/modules/main/getters';
+import {
+  SCHEDULE,
+  WEEKEND,
+  SELECTED_TEACHER,
+  SELECTED_SEMIGROUP,
+} from '@/store/modules/main/getters';
 import CourseComponent from '@/components/Schedule/Course.component.vue';
 import { ROUTES } from '@/constants';
 import {
   GET_SCHEDULE_ACTION,
   RESET_SCHEDULE_ACTION,
 } from '../../store/modules/main/actions';
+import { teachers } from '../../services/API.endpoints';
 
 // component setup
 @Component({
   components: {
     CourseComponent,
   },
-  computed: mapGetters({ SCHEDULE, WEEKEND }),
+  computed: mapGetters({
+    SCHEDULE,
+    WEEKEND,
+    SELECTED_TEACHER,
+    SELECTED_SEMIGROUP,
+  }),
 })
 export default class ScheduleComponent extends Vue {
   // private
   private countLine = 0;
   private readonly ROUTES: {} = ROUTES;
+  private fav = false;
   private days = [
     {
       dId: 1,
@@ -275,6 +341,52 @@ export default class ScheduleComponent extends Vue {
         ? this.dayToShow--
         : (this.dayToShow = this.days.length);
     }
+  }
+  private makeFav() {
+    const object = {
+      id: this.id,
+      mode: this.mode.toString(),
+      name: this.getName(),
+    };
+    let newArray: any[] = [];
+    const local = localStorage.getItem('Favorites');
+    if (local === null || local.length === 2) {
+      newArray.push(object);
+      this.fav = true;
+    } else {
+      const favList = JSON.parse(local);
+      newArray = favList.filter((item: any) => {
+        return !(!(item.id !== object.id) && !(item.mode !== object.mode));
+      });
+      if (favList.length === newArray.length) {
+        newArray.push(object);
+        this.fav = true;
+      } else {
+        this.fav = false;
+      }
+    }
+    localStorage.setItem('Favorites', JSON.stringify(newArray));
+  }
+  private getName() {
+    const teacher = this.$store.getters[SELECTED_TEACHER] || 'test';
+    const group = this.$store.getters[SELECTED_SEMIGROUP];
+    console.log(teacher, group);
+
+    return group.length > 0 ? group : teacher;
+  }
+  get star() {
+    const object = {
+      id: this.id,
+      mode: this.mode.toString(),
+      name: this.getName(),
+    };
+    const local = localStorage.getItem('Favorites') || '[{}]';
+    const favList = JSON.parse(local);
+    return favList.find(
+      (item: any) => item.id === object.id && item.mode === object.mode,
+    )
+      ? true
+      : false;
   }
 }
 </script>

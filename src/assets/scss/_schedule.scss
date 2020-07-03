@@ -187,3 +187,10 @@ td.blur {
 td.interval {
   max-height: 30px !important;
 }
+
+.starButton {
+  color: gold !important;
+  .noStarButton {
+    color: black !important;
+  }
+}
