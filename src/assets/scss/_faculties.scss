@@ -3,17 +3,20 @@
   .facultyItem {
     font-size: 1.5rem;
     cursor: pointer;
-    // text-align: center;
   }
-  .mijloc {
-    // float: ;
-    // text-align: center;
+  .year {
+    font-size: 1.5rem;
+    text-decoration: underline;
+    color: var(--color-black);
   }
   ul.TekList {
-    // width: 80%;
     position: relative;
     list-style: none;
-
+    &.yearList {
+      li:nth-child(even) {
+        margin-bottom: 25px !important;
+      }
+    }
     // overflow-y: scroll;
     &.isMobile {
       li {
@@ -30,11 +33,6 @@
       }
     }
     li {
-      // text-align: justify;
-      padding: 2px 0px;
-      // margin: 5px;
-      // margin: auto;
-
       text-align: left;
       padding-left: 20%;
       padding-right: 10%;

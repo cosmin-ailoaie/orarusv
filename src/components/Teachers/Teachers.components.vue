@@ -2,15 +2,15 @@
   <div class="teachersList container">
     <Loader :is-loading="LOADING_STATUS" />
     <div>
-      <b-row class="mt-4">
-        <b-col>
+      <b-row class="mt-4" align-h="center">
+        <b-col cols="6" xl="3" lg="3" md="4" sm="4">
           <router-link :to="ROUTES.HOME.path">
             <div class="fakeButton">
               Inapoi
             </div>
           </router-link>
         </b-col>
-        <b-col>
+        <b-col cols="6" xl="3" lg="3" md="4" sm="4">
           <router-link :to="ROUTES.HOME.path">
             <div class="fakeButton">
               Acasa
@@ -31,39 +31,24 @@
           ></span>
         </b-input-group-prepend>
       </b-input-group>
-      <b-row v-if="TEACHERS[0]">
-        <b-col xs="10" sm="10" md="9" lg="11">
-          <div class="teachers mt-3">
-            <ul>
-              <li
-                v-for="teacher in TEACHERS.filter(teacher =>
-                  teacher.name
-                    .toLowerCase()
-                    .includes(filter.trim().toLowerCase()),
-                )"
-                :key="teacher.id"
-                :id="teacher.id"
-                @click="selectTeacher(teacher.id, teacher.name)"
-              >
-                {{ teacher.name }}
-              </li>
-            </ul>
-          </div>
+      <b-row v-if="TEACHERS[0]" align-h="center">
+        <b-col cols="10" class="teachers mt-3">
+          <!-- <div class="teachers mt-3"> -->
+          <ul>
+            <li
+              v-for="teacher in TEACHERS.filter(teacher =>
+                teacher.name
+                  .toLowerCase()
+                  .includes(filter.trim().toLowerCase()),
+              )"
+              :key="teacher.id"
+              :id="teacher.id"
+              @click="selectTeacher(teacher.id, teacher.name)"
+            >
+              {{ teacher.name }}
+            </li>
+          </ul>
         </b-col>
-        <!-- <b-col xs="1" sm="1" md="3" lg="1">
-
-        <ul class="alpha-letters-list">
-          <li
-            v-for="(letter, index) in letters"
-            :key="index"
-            @click="selectedLetter(letter)"
-            class="contains"
-          >
-            <span>{{ letter }}</span>
-            <i></i>
-          </li>
-        </ul>
-      </b-col> -->
       </b-row>
     </div>
   </div>
@@ -121,6 +106,6 @@ export default class TeachersComponent extends Vue {
   }
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss">
 @import '@/assets/scss/_teachers.scss';
 </style>

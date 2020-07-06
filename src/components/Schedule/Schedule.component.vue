@@ -1,5 +1,5 @@
 <template>
-  <div class="schedule mt-5 container">
+  <div class="schedule mt-xl-5 mt-lg-5 mt-md-4 mt-sm-3 mt-3 container">
     <b-row align-h="between">
       <b-col
         cols="6"
@@ -56,17 +56,18 @@
         </div>
       </b-col>
     </b-row>
-    <h5 v-if="SCHEDULE.length > 0 && mode === 'grupa'">
-      {{ SELECTED_SEMIGROUP }}
-    </h5>
-    <h5 v-if="SCHEDULE.length > 0 && mode === 'prof'">
-      {{ SCHEDULE[0].teachingDegreeName }}
-      {{ SCHEDULE[0].doctoralSituationsName }}
-      {{ SCHEDULE[0].activityTypesName }} {{ SCHEDULE[0].teacherLastName }}
-      {{ SCHEDULE[0].teacherFirstName }}
-    </h5>
+    <div class="scheduleTitle">
+      <h3 v-if="SCHEDULE.length > 0 && mode === 'grupa'">
+        {{ SELECTED_SEMIGROUP }}
+      </h3>
+      <h3 v-if="SCHEDULE.length > 0 && mode === 'prof'">
+        {{ SCHEDULE[0].teachingDegreeName }}
+        {{ SCHEDULE[0].doctoralSituationsName }}
+        {{ SCHEDULE[0].activityTypesName }} {{ SCHEDULE[0].teacherLastName }}
+        {{ SCHEDULE[0].teacherFirstName }}
+      </h3>
+    </div>
     <table class="scheduleTable">
-      <!-- :style="listLength" -->
       <tbody>
         <tr class="day">
           <td></td>
@@ -76,13 +77,11 @@
             class="headDay"
             :class="day.dId != dayToShow && windowWidth < 768 ? 'blur' : ''"
           >
-            <!-- :style="listPosition" -->
             {{ day.name }}
           </td>
         </tr>
-
         <tr v-for="hour in hours" :key="hour.hId" class="hour">
-          <td class="interval">{{ hour.name }}</td>
+          <td class="interval" v-html="hour.name"></td>
           <template v-for="day in days">
             <CourseComponent
               :key="day.dId"
@@ -91,33 +90,24 @@
               class="bodyDay"
               :class="day.dId != dayToShow && windowWidth < 768 ? 'blur' : ''"
             >
-              <!-- :style="listPosition" -->
             </CourseComponent>
           </template>
         </tr>
 
-        <tr class="legends">
+        <!-- <tr class="legends">
           <td v-for="day in days.length + 1" :key="day.dID">-</td>
-        </tr>
+        </tr> -->
 
         <tr class="legends">
-          <td style="border: none;background-color:transparent">Legenda:</td>
+          <td style="border: none;">Legendă:</td>
           <td style="background-color:#ccbbbb">seminar</td>
           <td style="background-color:#ccddcc">laborator</td>
-          <td style="background-color:#eeeeee">consultatii</td>
+          <td style="background-color:#eeeeee">consultații</td>
           <td style="background-color:#ccddcc">proiect</td>
           <td style="background-color:#9999aa">curs</td>
         </tr>
       </tbody>
     </table>
-
-    <button
-      class="inc"
-      @click="dayToShow == days.length ? (dayToShow = 1) : dayToShow++"
-    >
-      Inc Day
-    </button>
-    <!-- <b-table striped hover :items="SCHEDULE"></b-table> -->
   </div>
 </template>
 
@@ -190,59 +180,59 @@ export default class ScheduleComponent extends Vue {
   private hours = [
     {
       hId: 480,
-      name: '8:00-9:00',
+      name: '8<sup>00</sup>-9<sup>00</sup>',
     },
     {
       hId: 540,
-      name: '9:00-10:00',
+      name: '9<sup>00</sup>-10<sup>00</sup>',
     },
     {
       hId: 600,
-      name: '10:00-11:00',
+      name: '10<sup>00</sup>-11<sup>00</sup>',
     },
     {
       hId: 660,
-      name: '11:00-12:00',
+      name: '11<sup>00</sup>-12<sup>00</sup>',
     },
     {
       hId: 720,
-      name: '12:00-13:00',
+      name: '12<sup>00</sup>-13<sup>00</sup>',
     },
     {
       hId: 780,
-      name: '13:00-14:00',
+      name: '13<sup>00</sup>-14<sup>00</sup>',
     },
     {
       hId: 840,
-      name: '14:00-15:00',
+      name: '14<sup>00</sup>-15<sup>00</sup>',
     },
     {
       hId: 900,
-      name: '15:00-16:00',
+      name: '15<sup>00</sup>-16<sup>00</sup>',
     },
     {
       hId: 960,
-      name: '16:00-17:00',
+      name: '16<sup>00</sup>-17<sup>00</sup>',
     },
     {
       hId: 1020,
-      name: '17:00-18:00',
+      name: '17<sup>00</sup>-18<sup>00</sup>',
     },
     {
       hId: 1080,
-      name: '18:00-19:00',
+      name: '18<sup>00</sup>-19<sup>00</sup>',
     },
     {
       hId: 1140,
-      name: '19:00-20:00',
+      name: '19<sup>00</sup>-20<sup>00</sup>',
     },
     {
       hId: 1200,
-      name: '20:00-21:00',
+      name: '20<sup>00</sup>-21<sup>00</sup>',
     },
     {
       hId: 1260,
-      name: '21:00-22:00',
+      name: '21<sup>00</sup>-22<sup>00</sup>',
     },
   ];
   private COURSES: any = [];

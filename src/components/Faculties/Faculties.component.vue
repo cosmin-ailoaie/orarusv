@@ -1,7 +1,7 @@
 <template>
   <div class="mt-5 facultiesList container">
     <Loader :is-loading="LOADING_STATUS" />
-    <transition name="router-anim" mode="out-in">
+    <transition name="faculties-anim" mode="out-in">
       <ul
         class="TekList"
         v-if="facultyId === 0 && semiGroupId === 0 && FACULTIES[0]"
@@ -48,7 +48,7 @@
         </li>
       </ul>
     </transition>
-    <transition name="router-anim" mode="out-in">
+    <transition name="faculties-anim" mode="out-in">
       <div v-if="facultyId > 0 && semiGroupId === 0">
         <ul>
           <li @click="facultyId = 0">
@@ -66,13 +66,18 @@
           >
             <div class="subgroup">
               <b-card>
-                <b-row>
+                <b-row align-h="center">
                   <b-col
                     v-for="(year, index) in subGroupT(subGroup)"
                     :key="index"
+                    xl="3"
+                    lg="3"
+                    md="6"
+                    sm="12"
+                    class="yearContainer"
                   >
-                    Anul {{ year[0].year }}
-                    <ul class="TekList">
+                    <div class="year">Anul {{ year[0].year }}</div>
+                    <ul class="TekList yearList">
                       <li
                         v-for="group in year"
                         :key="group.id"

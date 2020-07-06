@@ -5,7 +5,7 @@
         {{ room.name }}
       </li>
     </ul>
-    <button @click="test()">Test</button>
+    <h1 style="color:white">UNDER CONSTRUCTION</h1>
   </div>
 </template>
 

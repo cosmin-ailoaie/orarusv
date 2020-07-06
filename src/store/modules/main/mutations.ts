@@ -105,6 +105,7 @@ export const mutations = {
   },
   SWITCH_THEME_MUTATION: (state: State, payload: any) => {
     state.dark = payload.dark;
+    localStorage.setItem('NightMode', payload.dark);
   },
   SELECT_SEMIGROUP_MUTATION: (state: State, payload: any) => {
     set(state, payload);
@@ -112,19 +113,6 @@ export const mutations = {
   GET_ROOMS_MUTATION: (state: State, payload: any) => {
     if (payload.rooms.length > 0) {
       const list = payload.rooms.split('<br />');
-
-      // const json: any = [];
-      // list.forEach((element: any) => {
-      //   const line = element.split(';');
-      //   const obj = {
-      //     id: line[0],
-      //     shortName: line[1],
-      //     name: line[2],
-      //   };
-
-      //   json.push(obj);
-      // });
-      // state.faculties = json;
     } else {
       state.rooms = [];
       state.alert = payload.alert;

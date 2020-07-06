@@ -1,50 +1,52 @@
 // @import './variables.scss';
 .teachersList {
   .teachers {
-    position: relative;
-    // border: 1px solid black;
-    // margin: auto;
     height: 64vh;
     overflow-y: scroll;
     overflow-x: hidden;
-    // overflow-x: hidden;
+    // display: flex;
+    // align-items: center;
     ul {
-      width: 99%;
-      position: relative;
-      // background-color: white;
+      width: 95%;
       li {
         list-style: none;
         padding: 10px;
         margin: 5px;
         width: 100%;
         // box-shadow: 0 5px 25px rgba(#000, $alpha: 0.1);
-        transition: transform 0.2s;
-        // display: flex;
-        // justify-content: space-between;
-        // align-items: center;
-        // border: 1px solid black;
-        // margin: 1px;
-        border-radius: 10px;
+        // start ===============
+        // transition: transform 0.2s;
+
+        // border-radius: 10px;
         background-color: white;
+        // font-size: 1.2rem;
+        // color: black;
+        // &:hover {
+        //   border-radius: 10px;
+        //   transform: scale(1.1);
+        //   z-index: 100;
+        //   background: var(--color-c1-blue);
+        //   color: white;
+        //   box-shadow: 0 5px 25px rgba(#000, $alpha: 0.1);
+        // }
+        // end ==================
+
+        transition: transform 0.2s;
+        @media (max-width: 768px) {
+          background-color: var(--color-black);
+        }
         font-size: 1.2rem;
-        color: black;
+        color: var(--color-black);
+        border-radius: 10px;
         &:hover {
-          //   font-weight: bold;
-          //   color: blue;
-          transform: scale(1.1);
+          transform: scale(1.05);
           z-index: 100;
           background: var(--color-c1-blue);
           color: white;
           box-shadow: 0 5px 25px rgba(#000, $alpha: 0.1);
         }
-        //   &:nth-child(odd) {
-        //     background-color: lightgray;
-        //   }
-        //   &:nth-child(even) {
-        //     background-color: lighter(lightgrey);
-        //   }s
+        color: black;
       }
-      color: white;
     }
   }
   .alpha-letters-list {

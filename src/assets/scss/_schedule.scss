@@ -1,5 +1,11 @@
 // @import './variables.scss';
 .schedule {
+  .scheduleTitle {
+    h3 {
+      color: var(--color-black) !important;
+      font-size: 1.5rem;
+    }
+  }
   overflow: hidden;
 }
 .schedule table {
@@ -36,7 +42,7 @@
       //   }
     }
     td:first-child {
-      background-color: transparent;
+      background-color: var(--color-bg);
       border: none;
     }
   }
@@ -58,7 +64,7 @@
       //     width: 100%;
       //   }
       td {
-        border: 1px solid b;
+        border: 1px solid black;
         border-top: none;
         color: var(--color_black);
         width: 140px;
@@ -68,24 +74,13 @@
         position: relative;
         max-height: 80px;
         vertical-align: middle;
-        //   overflow: hidden;
         &.hideOverflow {
-          // display: flex !important;
-          // background-color: red;
-          // flex-wrap: wrap;
-          // align-self: center;
-          // align-content: center;
           vertical-align: middle;
           width: 80%;
-          // display: table-caption;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
         }
-        // &:hover {
-        //   border: 1px solid $color-c1-blue;
-        // }
-
         &:first-child {
           border: 1px solid black;
           text-transform: uppercase;
@@ -95,13 +90,9 @@
           vertical-align: middle;
           width: 120px;
           @media (max-width: 768px) {
-            // display: flex;
             width: 10%;
-            // border-collapse: collapse;
-            // border-spacing: 5px 0px;
           }
           @media (max-width: 576px) {
-            // display: flex;
             width: 20%;
             // border-collapse: collapse;
             // border-spacing: 5px 0px;
@@ -133,11 +124,6 @@
           text-transform: none;
           ul {
             margin-bottom: 0rem;
-            li {
-              &:before {
-                content: '• ';
-              }
-            }
           }
         }
 
@@ -165,7 +151,14 @@ tr.legends {
   @media (max-width: 768px) {
     display: none;
   }
-  background-color: transparent !important;
+  td {
+    &:first-child {
+      background-color: white !important;
+      color: inherit;
+      border: 1px solid black !important;
+    }
+  }
+  background-color: white !important;
 }
 button.inc {
   @media (min-width: 768px) {
@@ -181,9 +174,6 @@ td.blur {
   display: none;
 }
 
-.test {
-  background-color: red;
-}
 td.interval {
   max-height: 30px !important;
 }

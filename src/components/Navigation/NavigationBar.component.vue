@@ -5,7 +5,7 @@
         <router-link :to="ROUTES.HOME.path">
           <img
             v-if="DARK_THEME"
-            src="../../assets/images/logo_c-y-t2.png"
+            src="../../assets/images/sigla_USV_alt_mobile.png"
             alt="Logo USV"
             class="logo"
           />
@@ -22,14 +22,20 @@
         <hr class="hrColor" />
         <b-navbar-nav class="ml-auto">
           <b-nav-text>
-            <label class="switch">
+            <div class="nightMode">
               <input
                 type="checkbox"
+                class="checkbox"
+                id="chk"
                 :checked="DARK_THEME"
                 @change="switchMode()"
               />
-              <span class="slider round"></span>
-            </label>
+              <label class="label" for="chk">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+                <div class="ball"></div>
+              </label>
+            </div>
           </b-nav-text>
           <b-nav-item :to="ROUTES.HOME.path" exact>
             Prima pagină
@@ -65,6 +71,15 @@ export default class NavigationBarComponent extends Vue {
   private nightMode = false;
   constructor() {
     super();
+    const storage = localStorage.getItem('NightMode') || 'null';
+    if (storage === 'null') {
+      this.$store.dispatch(SWITCH_THEME_ACTION, { dark: this.nightMode });
+    } else {
+      this.nightMode = JSON.parse(storage);
+      this.$store.dispatch(SWITCH_THEME_ACTION, {
+        dark: this.nightMode,
+      });
+    }
   }
   private switchMode() {
     this.$store.dispatch(SWITCH_THEME_ACTION, {
@@ -73,73 +88,4 @@ export default class NavigationBarComponent extends Vue {
   }
 }
 </script>
-<style lang="scss">
-li.nav-item {
-  &:hover {
-    color: var(--color-c1-blue);
-  }
-}
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #fcc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: '';
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-input:checked + .slider {
-  background-color: var(--color-c1-blue);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px var(--color-c1-blue);
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-.navbar {
-  background-color: var(--color-nav-bg);
-  background-image: none;
-}
-</style>
+<style lang="scss"></style>

@@ -43,7 +43,7 @@
           </li>
         </ul>
       </div>
-      <div v-else class="mt-5" key="2">
+      <div v-else class="mt-5 noFav" key="2">
         <h4>
           Nu ai ales niciun orar favorit <i class="far fa-sad-tear"></i> .
         </h4>
@@ -102,8 +102,9 @@ export default class FavoritesComponent extends Vue {
 }
 </script>
 <style lang="scss">
-.favList {
-  color: black;
+.favList,
+.noFav {
+  color: var(--color-black);
   font-weight: bold;
   font-size: 1.6rem;
 }
