@@ -3,20 +3,34 @@
     <b-navbar toggleable="true">
       <b-navbar-brand class="logo" :title="APP.TITLE">
         <router-link :to="ROUTES.HOME.path">
-          <img src="../../assets/images/logo.png" alt="" class="logo" />
+          <img
+            v-if="DARK_THEME"
+            src="../../assets/images/logo_c-y-t2.png"
+            alt="Logo USV"
+            class="logo"
+          />
+          <img v-else src="../../assets/images/logo.png" alt="logo" class="" />
         </router-link>
       </b-navbar-brand>
-
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
+      <!-- <b-navbar-toggle target="nav-collapse"></b-navbar-toggle> -->
+      <b-navbar-toggle target="nav-collapse">
+        <template>
+          <i class="fas fa-bars fa-lg"></i>
+        </template>
+      </b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
-        <hr />
+        <hr class="hrColor" />
         <b-navbar-nav class="ml-auto">
-          <label class="switch">
-            <input type="checkbox" checked />
-            <span class="slider round"></span>
-            NIGHT/DAY MODE TODO
-          </label>
+          <b-nav-text>
+            <label class="switch">
+              <input
+                type="checkbox"
+                :checked="DARK_THEME"
+                @change="switchMode()"
+              />
+              <span class="slider round"></span>
+            </label>
+          </b-nav-text>
           <b-nav-item :to="ROUTES.HOME.path" exact>
             Prima pagină
           </b-nav-item>
@@ -40,23 +54,29 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import { APP, ROUTES } from '@/constants';
-
+import { DARK_THEME } from '@/store/modules/main/getters';
+import { SWITCH_THEME_ACTION } from '@/store/modules/main/actions';
 // component setup
-@Component({ computed: mapGetters({}) })
+@Component({ computed: mapGetters({ DARK_THEME }) })
 export default class NavigationBarComponent extends Vue {
   // private
   private readonly APP: {} = APP;
   private readonly ROUTES: {} = ROUTES;
-
+  private nightMode = false;
   constructor() {
     super();
+  }
+  private switchMode() {
+    this.$store.dispatch(SWITCH_THEME_ACTION, {
+      dark: this.nightMode = !this.nightMode,
+    });
   }
 }
 </script>
 <style lang="scss">
 li.nav-item {
   &:hover {
-    color: blue;
+    color: var(--color-c1-blue);
   }
 }
 .switch {
@@ -79,7 +99,7 @@ li.nav-item {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #fcc;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -97,11 +117,11 @@ li.nav-item {
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: var(--color-c1-blue);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px var(--color-c1-blue);
 }
 
 input:checked + .slider:before {
@@ -117,5 +137,9 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+.navbar {
+  background-color: var(--color-nav-bg);
+  background-image: none;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-5 facultiesList">
+  <div class="mt-5 facultiesList container">
     <Loader :is-loading="LOADING_STATUS" />
     <transition name="router-anim" mode="out-in">
       <ul
@@ -49,25 +49,6 @@
       </ul>
     </transition>
     <transition name="router-anim" mode="out-in">
-      <!-- <ul v-if="facultyId > 0 && semiGroupId === 0">
-        <li @click="facultyId = 0">
-          <i class="fas fa-arrow-left fa-lg"></i>
-        </li>
-        <li
-          v-for="group in SEMIGROUPS.filter(
-            group => group.facultyId === facultyId,
-          )"
-          :key="group.id"
-          class="my-2 "
-          @click="goToSchedule(group.id)"
-        >
-          <div class="facultyItem">
-            {{
-              `${group.specialityShortName}  ${group.groupNumber}${group.subGroupLetter}`
-            }}
-          </div>
-        </li>
-      </ul> -->
       <div v-if="facultyId > 0 && semiGroupId === 0">
         <ul>
           <li @click="facultyId = 0">
@@ -85,53 +66,43 @@
           >
             <div class="subgroup">
               <b-card>
-                <ul class="TekList">
-                  <li
-                    v-for="group in subGroup"
-                    :key="group.id"
-                    class="my-2 "
-                    @click="
-                      goToSchedule(
-                        group.id,
-                        group.year,
-                        group.groupNumber,
-                        group.subGroupLetter,
-                      )
-                    "
+                <b-row>
+                  <b-col
+                    v-for="(year, index) in subGroupT(subGroup)"
+                    :key="index"
                   >
-                    <div class="facultyItem">
-                      {{
-                        `Anul ${group.year}: ${group.groupNumber}${group.subGroupLetter}`
-                      }}
-                    </div>
-                  </li>
-                </ul>
+                    Anul {{ year[0].year }}
+                    <ul class="TekList">
+                      <li
+                        v-for="group in year"
+                        :key="group.id"
+                        class="my-2 "
+                        @click="
+                          goToSchedule(
+                            group.id,
+                            group.year,
+                            group.groupNumber,
+                            group.subGroupLetter,
+                          )
+                        "
+                      >
+                        <div class="facultyItem">
+                          {{
+                            `${
+                              group.groupNumber
+                            }${group.subGroupLetter.toUpperCase()}`
+                          }}
+                        </div>
+                      </li>
+                    </ul>
+                  </b-col>
+                </b-row>
               </b-card>
             </div>
           </b-tab>
         </b-tabs>
       </div>
     </transition>
-    <!-- 
-      <ul v-if="semiGroupId > 0">
-        <li @click="semiGroupId = 0">
-          <i class="fas fa-arrow-left fa-lg"></i>
-        </li>
-        <li
-          v-for="group in SEMIGROUPS.filter(
-            group => group.facultyId === facultyId,
-          )"
-          :key="group.id"
-          class="my-2 "
-          @click="semiGroupId = group.id"
-        >
-          <div class="facultyItem">
-            {{
-              `${group.specialityShortName}  ${group.groupNumber}${group.subGroupLetter}`
-            }}
-          </div>
-        </li>
-      </ul> -->
   </div>
 </template>
 
@@ -226,6 +197,31 @@ export default class FacultiesComponent extends Vue {
     // return semigroups.map((group:any)=>{
 
     // })
+  }
+  private subGroupT(subgorup: any) {
+    // console.log(subgorup);
+
+    const groupBy = (objectArray: any, ...properties: any) => {
+      return [
+        ...Object.values(
+          objectArray.reduce((accumulator: any, object: any) => {
+            const key = JSON.stringify(
+              properties.map((x: any) => object[x] || null),
+            );
+
+            if (!accumulator[key]) {
+              accumulator[key] = [];
+            }
+            accumulator[key].push(object);
+            return accumulator;
+          }, {}),
+        ),
+      ];
+    };
+
+    const subGroup = groupBy(subgorup, 'year');
+    console.log(subGroup);
+    return subGroup;
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="teachersList">
+  <div class="teachersList container">
     <Loader :is-loading="LOADING_STATUS" />
     <div>
       <b-row class="mt-4">

@@ -1,5 +1,5 @@
 <template>
-  <div class="schedule mt-5">
+  <div class="schedule mt-5 container">
     <b-row align-h="between">
       <b-col
         cols="6"
@@ -246,7 +246,6 @@ export default class ScheduleComponent extends Vue {
     },
   ];
   private COURSES: any = [];
-  //   private rowSpan = 1;
   private dayToShow = 1;
   private windowWidth = 99999;
   private touch: any = {
@@ -329,7 +328,7 @@ export default class ScheduleComponent extends Vue {
   private touchend() {
     if (
       !this.touch.endX ||
-      Math.abs(this.touch.endX - this.touch.startX) < 20
+      Math.abs(this.touch.endX - this.touch.startX) < 50
     ) {
       return;
     }
@@ -368,7 +367,6 @@ export default class ScheduleComponent extends Vue {
       }
     }
     localStorage.setItem('Favorites', JSON.stringify(newArray));
-    this.$storage.set('Favorites', newArray);
   }
   private getName() {
     const teacher = this.$store.getters[SELECTED_TEACHER] || 'test';

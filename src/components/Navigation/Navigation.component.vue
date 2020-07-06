@@ -1,5 +1,5 @@
 <template>
-  <div class="navigation-wrapper mt-5">
+  <div class="navigation-wrapper mt-5 container">
     <b-row align-v="center">
       <b-col
         lg="3"

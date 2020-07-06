@@ -18,18 +18,20 @@ import {
   GET_TEACHERS_MUTATION,
   SELECT_TEACHER_MUTATION,
   SELECT_SEMIGROUP_MUTATION,
+  SWITCH_THEME_MUTATION,
 } from './mutations';
 import { getSemiGroupsList } from '@/services/methods/faculties';
 
-export const GET_FACULTIES_ACTION = `${STORE_MAIN_MODULE}/GET_FACULTIES_ACTION`;
-export const GET_SEMIGROUPS_ACTION = `${STORE_MAIN_MODULE}/GET_SEMIGROUPS_ACTION`;
 export const GET_ROOMS_ACTION = `${STORE_MAIN_MODULE}/GET_ROOMS_ACTION`;
-export const GET_TEACHERS_ACTION = `${STORE_MAIN_MODULE}/GET_TEACHERS_ACTION`;
-export const SELECT_TEACHER_ACTION = `${STORE_MAIN_MODULE}/SELECT_TEACHER_ACTION`;
-export const SELECT_SEMIGROUP_ACTION = `${STORE_MAIN_MODULE}/SELECT_SEMIGROUP_ACTION`;
-export const GET_SCHEDULE_ACTION = `${STORE_MAIN_MODULE}/GET_SCHEDULE_ACTION`;
-export const RESET_SCHEDULE_ACTION = `${STORE_MAIN_MODULE}/RESET_SCHEDULE_ACTION`;
 export const RESET_STATE_ACTION = `${STORE_MAIN_MODULE}/RESET_STATE_ACTION`;
+export const SWITCH_THEME_ACTION = `${STORE_MAIN_MODULE}/SWITCH_THEME_ACTION`;
+export const GET_SCHEDULE_ACTION = `${STORE_MAIN_MODULE}/GET_SCHEDULE_ACTION`;
+export const GET_TEACHERS_ACTION = `${STORE_MAIN_MODULE}/GET_TEACHERS_ACTION`;
+export const GET_FACULTIES_ACTION = `${STORE_MAIN_MODULE}/GET_FACULTIES_ACTION`;
+export const SELECT_TEACHER_ACTION = `${STORE_MAIN_MODULE}/SELECT_TEACHER_ACTION`;
+export const RESET_SCHEDULE_ACTION = `${STORE_MAIN_MODULE}/RESET_SCHEDULE_ACTION`;
+export const GET_SEMIGROUPS_ACTION = `${STORE_MAIN_MODULE}/GET_SEMIGROUPS_ACTION`;
+export const SELECT_SEMIGROUP_ACTION = `${STORE_MAIN_MODULE}/SELECT_SEMIGROUP_ACTION`;
 
 export const actions = {
   GET_FACULTIES_ACTION: async ({ commit }: any, payload: any) => {
@@ -138,7 +140,9 @@ export const actions = {
       console.log(payload);
 
       commit(IS_LOADING_MUTATION, { isLoading: true });
-      commit(SELECT_SEMIGROUP_MUTATION, { selectedSemiGroup: payload.name });
+      commit(SELECT_SEMIGROUP_MUTATION, {
+        selectedSemiGroup: payload.name,
+      });
       commit(IS_LOADING_MUTATION, { isLoading: false });
     } catch (error) {
       console.log(error);
@@ -163,6 +167,24 @@ export const actions = {
     } catch (error) {
       commit(GET_SCHEDULE_MUTATION, {
         schedule: [],
+        hasError: true,
+        alert: {
+          show: true,
+          type: ALERT.DANGER,
+          message: ERRORS.GET_DATA(),
+        },
+      });
+      commit(IS_LOADING_MUTATION, { isLoading: false });
+    }
+  },
+  SWITCH_THEME_ACTION: async ({ commit }: any, payload: any) => {
+    try {
+      commit(IS_LOADING_MUTATION, { isLoading: true });
+      commit(SWITCH_THEME_MUTATION, { dark: payload.dark });
+      commit(IS_LOADING_MUTATION, { isLoading: false });
+    } catch (error) {
+      commit(SWITCH_THEME_MUTATION, {
+        dark: false,
         hasError: true,
         alert: {
           show: true,

@@ -1,4 +1,4 @@
-@import './variables.scss';
+// @import './variables.scss';
 .schedule {
   overflow: hidden;
 }
@@ -24,7 +24,7 @@
   }
   tr.day {
     td:not(:first-child) {
-      color: black;
+      color: var(--color_black);
       background-color: white;
       text-transform: uppercase;
       font-weight: bold;
@@ -58,9 +58,9 @@
       //     width: 100%;
       //   }
       td {
-        border: 1px solid black;
+        border: 1px solid b;
         border-top: none;
-        color: black;
+        color: var(--color_black);
         width: 140px;
         @media (max-width: 768px) {
           width: 80%;

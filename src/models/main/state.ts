@@ -10,4 +10,5 @@ export interface State {
   hasError: boolean;
   weekend: boolean;
   alert: {};
+  dark: boolean;
 }

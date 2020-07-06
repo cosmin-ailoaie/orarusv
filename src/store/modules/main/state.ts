@@ -12,4 +12,5 @@ export const initialState = (): State => ({
   hasError: false,
   weekend: false,
   alert: {},
+  dark: false,
 });

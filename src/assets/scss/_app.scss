@@ -7,39 +7,89 @@
 }
 html,
 body {
-  background-color: $color-bg;
-  // height: 100vh;
+  --color-bg: #eaeaea;
+  --color-white: #fff;
+  --color-nav-bg: #f7f7f7;
+  --color-hr-black: 0, 0, 0;
+  --color-black: black;
+  --color-dark-gray: #444444;
+  --color-medium-gray: #676767;
+  --color-light-gray: #d9d9d9;
+
+  --color-c1-blue: #00338d;
+  --color-c1-blue-second: #00338d;
+  --color-c2-cyan: #80e6ff;
+
+  --color-sc1-blue: #001f99;
+  --color-sc2-gray: #d9e6e6;
+  --color-sc3-orange: #ff5900;
+  --color-sc4-yellow: #ffcd19;
+  --color-sc5-dark-green: #199919;
+  --color-sc6-olive: #b3e600;
+
   width: 100%;
   margin: 0;
 }
+
+#app.dark {
+  --color-bg: #575755;
+  --color-white: black;
+  --color-nav-bg: #252624;
+  --color-hr-black: 255, 255, 255;
+  --color-black: white;
+  --color-dark-gray: #444444;
+  --color-medium-gray: #676767;
+  --color-light-gray: #d9d9d9;
+
+  --color-c1-blue: #00338d;
+  --color-c1-blue-second: white;
+
+  --color-c2-cyan: #80e6ff;
+
+  --color-sc1-blue: #001f99;
+  --color-sc2-gray: #d9e6e6;
+  --color-sc3-orange: #ff5900;
+  --color-sc4-yellow: #ffcd19;
+  --color-sc5-dark-green: #199919;
+  --color-sc6-olive: #b3e600;
+}
+
 #app {
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: $color-medium-gray;
+  color: var(--color-medium-gray);
+  background-color: var(--color-bg);
   position: relative;
+
   height: 100vh;
   margin: 0;
   .fakeButton {
     border-radius: 50px;
-    background-color: $color-white;
+    background-color: var(--color-nav-bg);
     font-weight: bolder;
-    font-size: 1.6rem;
-    color: black;
+    font-size: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-black);
     padding: 10px 50px;
     cursor: pointer;
-    @media (max-width: 768px) {
-      font-size: 1.4rem;
-      padding: 10px 15px;
-    }
-    @media (max-width: 992px) {
+    @media (max-width: 991.98px) {
       // font-size: 1.4rem;
       padding: 10px 15px;
     }
+    @media (max-width: 767.98px) {
+      font-size: 1.4rem;
+      padding: 10px 15px;
+    }
+    @media (max-width: 575.98px) {
+      font-size: 1.2rem;
+      padding: 10px 10px;
+    }
     &:hover {
-      background-color: $color-c1-blue;
-      color: $color-white;
+      background-color: var(--color-c1-blue);
+      color: var(--color-white);
     }
   }
 }

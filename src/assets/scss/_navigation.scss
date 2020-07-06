@@ -1,22 +1,58 @@
-@import './variables.scss';
-
 .navbar-usv {
   width: 100%;
   min-height: 100px;
   padding-bottom: 10px;
   padding-top: 10px;
-  background-color: $color-nav-bg;
+  background-color: var(--color-nav-bg);
   -webkit-box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.4);
   .navbar {
     padding: 0.5rem 1rem !important;
+    .navbar-toggler {
+      color: var(--color-c1-blue-second);
+      border: none;
+      font-size: 2rem;
+      &:focus {
+        border: none;
+        outline: none;
+      }
+    }
+    .not-collapsed {
+      transition: 0.7s;
+      -webkit-transition: 0.7s;
+      -moz-transition: 0.7s;
+      -ms-transition: 0.7s;
+      -o-transition: 0.7s;
+      -webkit-transform: rotate(-90deg);
+      -moz-transform: rotate(-90deg);
+      -o-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+      transform: rotate(-90deg);
+    }
+    .collapsed {
+      transition: 0.7s;
+      -webkit-transition: 0.7s;
+      -moz-transition: 0.7s;
+      -ms-transition: 0.7s;
+      -o-transition: 0.7s;
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
     .nav-item {
       font-size: 1.5rem;
+      border-radius: 10px;
+      a {
+        color: var(--color-black);
+      }
       &:hover {
         font-weight: bold;
+        background-color: var(--color-c1-blue);
         a {
-          color: $color-c1-blue !important;
+          color: white;
         }
       }
     }
@@ -31,4 +67,7 @@
 }
 .navigation-wrapper {
   padding-top: 10px;
+}
+hr.hrColor {
+  border-top: 1px solid rgba(var(--color-hr-black), 0.3);
 }

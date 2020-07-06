@@ -13,6 +13,7 @@ export const SELECT_TEACHER_MUTATION = 'SELECT_TEACHER_MUTATION';
 export const SELECT_SEMIGROUP_MUTATION = 'SELECT_SEMIGROUP_MUTATION';
 export const GET_SCHEDULE_MUTATION = 'GET_SCHEDULE_MUTATION';
 
+export const SWITCH_THEME_MUTATION = 'SWITCH_THEME_MUTATION';
 export const IS_LOADING_MUTATION = 'IS_LOADING_MUTATION';
 export const RESET_SCHEDULE_MUTATION = 'RESET_SCHEDULE_MUTATION';
 export const RESET_STATE_MUTATION = 'RESET_STATE_MUTATION';
@@ -101,6 +102,9 @@ export const mutations = {
   },
   SELECT_TEACHER_MUTATION: (state: State, payload: any) => {
     set(state, payload);
+  },
+  SWITCH_THEME_MUTATION: (state: State, payload: any) => {
+    state.dark = payload.dark;
   },
   SELECT_SEMIGROUP_MUTATION: (state: State, payload: any) => {
     set(state, payload);

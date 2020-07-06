@@ -1,13 +1,14 @@
 <template>
-  <div class="mt-5">
-    <b-row class="justify-content-md-center">
+  <div class="mt-5 container">
+    <!-- <b-container> -->
+    <b-row align-h="center">
       <b-col
         cols="6"
         sm="6"
-        lg="3"
-        md="3"
+        md="4"
+        lg="4"
         xl="3"
-        class="mb-xl-5 mb-lg-5 mb-md-3 mb-sm-2 mb-2"
+        class="mb-xl-5 mb-lg-5 mb-md-5 mb-sm-5 mb-3"
         @click="$router.go(-1)"
       >
         <div class="fakeButton">
@@ -17,11 +18,11 @@
       <b-col
         cols="6"
         sm="6"
-        lg="3"
-        md="3"
+        md="4"
+        lg="4"
         xl="3"
-        class="mb-xl-5 mb-lg-5 mb-md-3 mb-sm-2 mb-2"
-        @click="favorites"
+        class="mb-xl-5 mb-lg-5 mb-md-5 mb-sm-5 mb-3"
+        @click="reset"
       >
         <div class="fakeButton">
           Resetează
@@ -29,21 +30,26 @@
       </b-col>
     </b-row>
     <h2 class="mb-3 favList">Lista orarelor favorite:</h2>
-    <div v-if="favorites.length > 0">
-      <ul>
-        <li v-for="fav in favorites" :key="fav.id" class="my-2">
-          <div
-            class="fakeButton"
-            @click="goToSchedule(fav.id, fav.mode, fav.name)"
-          >
-            {{ fav.name }}
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div v-else class="mt-5">
-      <h4>Nu ai ales niciun orar favorit <i class="far fa-sad-tear"></i> .</h4>
-    </div>
+    <transition name="router-anim" mode="out-in">
+      <div v-if="favorites.length > 0 && fav" class="mt-5" key="1">
+        <ul>
+          <li v-for="fav in favorites" :key="fav.id" class="my-2">
+            <div
+              class="fakeButton"
+              @click="goToSchedule(fav.id, fav.mode, fav.name)"
+            >
+              {{ fav.name }}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div v-else class="mt-5" key="2">
+        <h4>
+          Nu ai ales niciun orar favorit <i class="far fa-sad-tear"></i> .
+        </h4>
+      </div>
+    </transition>
+    <!-- </b-container> -->
   </div>
 </template>
 
@@ -64,6 +70,7 @@ export default class FavoritesComponent extends Vue {
   // private
   private readonly APP: {} = APP;
   private readonly ROUTES: {} = ROUTES;
+  private fav = true;
 
   constructor() {
     super();
@@ -71,11 +78,6 @@ export default class FavoritesComponent extends Vue {
 
   private get favorites() {
     return JSON.parse(localStorage.getItem('Favorites') || '[]');
-  }
-  private set favorites(reset: any) {
-    console.log('in setter');
-
-    localStorage.setItem('Favorites', reset);
   }
 
   private goToSchedule(id: number, mode: string, name: string) {
@@ -94,6 +96,7 @@ export default class FavoritesComponent extends Vue {
     this.$router.push(ROUTES.SCHEDULE.schedule(id, mode));
   }
   private reset() {
+    this.fav = !this.fav;
     localStorage.removeItem('Favorites');
   }
 }
