@@ -48,9 +48,11 @@
         xl="2"
         class="mb-xl-5 mb-lg-5 mb-md-3 mb-sm-2 mb-2"
       >
-        <div class="fakeButton starButton" @click="makeFav()">
-          <i v-if="star || fav" class="fas fa-star"></i>
-          <i v-else class="far fa-star noStarButton"></i>
+        <div class="fakeButton " @click="makeFav()">
+          <i
+            class="fas fa-star star"
+            :class="star || fav ? 'starButton' : 'noStarButton'"
+          ></i>
         </div>
       </b-col>
     </b-row>
@@ -366,6 +368,7 @@ export default class ScheduleComponent extends Vue {
       }
     }
     localStorage.setItem('Favorites', JSON.stringify(newArray));
+    this.$storage.set('Favorites', newArray);
   }
   private getName() {
     const teacher = this.$store.getters[SELECTED_TEACHER] || 'test';

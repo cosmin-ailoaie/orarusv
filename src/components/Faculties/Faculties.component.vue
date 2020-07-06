@@ -1,9 +1,10 @@
 <template>
   <div class="mt-5 facultiesList">
+    <Loader :is-loading="LOADING_STATUS" />
     <transition name="router-anim" mode="out-in">
       <ul
         class="TekList"
-        v-if="facultyId === 0 && semiGroupId === 0"
+        v-if="facultyId === 0 && semiGroupId === 0 && FACULTIES[0]"
         :class="isMobile ? 'isMobile' : ''"
       >
         <router-link :to="ROUTES.HOME.path">
@@ -138,10 +139,12 @@
 // vue
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
+import Loader from '@/common/Loader.component.vue';
 import {
   FACULTIES,
   SEMIGROUPS,
   SELECTED_SEMIGROUP,
+  LOADING_STATUS,
 } from '@/store/modules/main/getters';
 import {
   GET_FACULTIES_ACTION,
@@ -151,7 +154,10 @@ import {
 import { ROUTES } from '@/constants/routes';
 
 // component setup
-@Component({ computed: mapGetters({ FACULTIES, SEMIGROUPS }) })
+@Component({
+  components: { Loader },
+  computed: mapGetters({ FACULTIES, SEMIGROUPS, LOADING_STATUS }),
+})
 export default class FacultiesComponent extends Vue {
   // private
   private readonly ROUTES: {} = ROUTES;

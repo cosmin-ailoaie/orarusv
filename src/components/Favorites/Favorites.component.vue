@@ -21,7 +21,7 @@
         md="3"
         xl="3"
         class="mb-xl-5 mb-lg-5 mb-md-3 mb-sm-2 mb-2"
-        @click="reset()"
+        @click="favorites"
       >
         <div class="fakeButton">
           Resetează
@@ -52,13 +52,14 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import { APP, ROUTES } from '@/constants';
+import Loader from '@/common/Loader.component.vue';
 import {
   SELECT_TEACHER_ACTION,
   SELECT_SEMIGROUP_ACTION,
 } from '@/store/modules/main/actions';
 
 // component setup
-@Component({ computed: mapGetters({}) })
+@Component({ components: { Loader }, computed: mapGetters({}) })
 export default class FavoritesComponent extends Vue {
   // private
   private readonly APP: {} = APP;
@@ -67,11 +68,16 @@ export default class FavoritesComponent extends Vue {
   constructor() {
     super();
   }
-  get favorites() {
-    const local = JSON.parse(localStorage.getItem('Favorites') || '[]');
-    console.log(local);
-    return local;
+
+  private get favorites() {
+    return JSON.parse(localStorage.getItem('Favorites') || '[]');
   }
+  private set favorites(reset: any) {
+    console.log('in setter');
+
+    localStorage.setItem('Favorites', reset);
+  }
+
   private goToSchedule(id: number, mode: string, name: string) {
     switch (mode) {
       case 'prof': {
@@ -89,7 +95,6 @@ export default class FavoritesComponent extends Vue {
   }
   private reset() {
     localStorage.removeItem('Favorites');
-    // this.favorites; // todo reset
   }
 }
 </script>

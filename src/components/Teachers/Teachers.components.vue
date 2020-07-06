@@ -1,54 +1,56 @@
 <template>
   <div class="teachersList">
-    <b-row class="mt-4">
-      <b-col>
-        <router-link :to="ROUTES.HOME.path">
-          <div class="fakeButton">
-            Inapoi
+    <Loader :is-loading="LOADING_STATUS" />
+    <div>
+      <b-row class="mt-4">
+        <b-col>
+          <router-link :to="ROUTES.HOME.path">
+            <div class="fakeButton">
+              Inapoi
+            </div>
+          </router-link>
+        </b-col>
+        <b-col>
+          <router-link :to="ROUTES.HOME.path">
+            <div class="fakeButton">
+              Acasa
+            </div>
+          </router-link>
+        </b-col>
+      </b-row>
+      <b-input-group size="sm mt-3">
+        <b-form-input
+          v-model="filter"
+          type="search"
+          id="filterInput"
+          placeholder="Cauta un profesor"
+        ></b-form-input>
+        <b-input-group-prepend>
+          <span class="input-group-text"
+            ><i class="fas fa-search search-icon"></i
+          ></span>
+        </b-input-group-prepend>
+      </b-input-group>
+      <b-row v-if="TEACHERS[0]">
+        <b-col xs="10" sm="10" md="9" lg="11">
+          <div class="teachers mt-3">
+            <ul>
+              <li
+                v-for="teacher in TEACHERS.filter(teacher =>
+                  teacher.name
+                    .toLowerCase()
+                    .includes(filter.trim().toLowerCase()),
+                )"
+                :key="teacher.id"
+                :id="teacher.id"
+                @click="selectTeacher(teacher.id, teacher.name)"
+              >
+                {{ teacher.name }}
+              </li>
+            </ul>
           </div>
-        </router-link>
-      </b-col>
-      <b-col>
-        <router-link :to="ROUTES.HOME.path">
-          <div class="fakeButton">
-            Acasa
-          </div>
-        </router-link>
-      </b-col>
-    </b-row>
-    <b-input-group size="sm mt-3">
-      <b-form-input
-        v-model="filter"
-        type="search"
-        id="filterInput"
-        placeholder="Cauta un profesor"
-      ></b-form-input>
-      <b-input-group-prepend>
-        <span class="input-group-text"
-          ><i class="fas fa-search search-icon"></i
-        ></span>
-      </b-input-group-prepend>
-    </b-input-group>
-    <b-row>
-      <b-col xs="10" sm="10" md="9" lg="11">
-        <div class="teachers mt-3">
-          <ul>
-            <li
-              v-for="teacher in TEACHERS.filter(teacher =>
-                teacher.name
-                  .toLowerCase()
-                  .includes(filter.trim().toLowerCase()),
-              )"
-              :key="teacher.id"
-              :id="teacher.id"
-              @click="selectTeacher(teacher.id, teacher.name)"
-            >
-              {{ teacher.name }}
-            </li>
-          </ul>
-        </div>
-      </b-col>
-      <!-- <b-col xs="1" sm="1" md="3" lg="1">
+        </b-col>
+        <!-- <b-col xs="1" sm="1" md="3" lg="1">
 
         <ul class="alpha-letters-list">
           <li
@@ -62,7 +64,8 @@
           </li>
         </ul>
       </b-col> -->
-    </b-row>
+      </b-row>
+    </div>
   </div>
 </template>
 
@@ -71,8 +74,8 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 
-import { TEACHERS } from '@/store/modules/main/getters';
-
+import { TEACHERS, LOADING_STATUS } from '@/store/modules/main/getters';
+import Loader from '@/common/Loader.component.vue';
 import {
   GET_TEACHERS_ACTION,
   SELECT_TEACHER_ACTION,
@@ -80,7 +83,10 @@ import {
 import { ROUTES } from '@/constants';
 
 // component setup
-@Component({ computed: mapGetters({ TEACHERS }) })
+@Component({
+  components: { Loader },
+  computed: mapGetters({ TEACHERS, LOADING_STATUS }),
+})
 export default class TeachersComponent extends Vue {
   // private
   private readonly ROUTES: {} = ROUTES;
