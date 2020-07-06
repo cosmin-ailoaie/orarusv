@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/data/"
-  to = "https://orar.usv.ro"
+  to = "https://orar.usv.ro/data"
   status = 200
 
 [[headers]]
