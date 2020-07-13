@@ -1,8 +1,10 @@
+import { Faculty } from './interfaces';
+
 export interface State {
   teachers: [];
   selectedTeacher: string;
   selectedSemiGroup: string;
-  faculties: [];
+  faculties: Faculty[];
   semigroups: [];
   rooms: [];
   schedule: [];

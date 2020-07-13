@@ -151,6 +151,9 @@ export default class FacultiesComponent extends Vue {
     if (this.$store.getters[FACULTIES].length === 0) {
       this.$store.dispatch(GET_SEMIGROUPS_ACTION);
     }
+    console.log('created');
+
+    console.log(this.$store.getters[FACULTIES]);
   }
   private mounted() {
     window.addEventListener('resize', () => {

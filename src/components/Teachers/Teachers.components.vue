@@ -6,14 +6,14 @@
         <b-col cols="6" xl="3" lg="3" md="4" sm="4">
           <router-link :to="ROUTES.HOME.path">
             <div class="fakeButton">
-              Inapoi
+              Înapoi
             </div>
           </router-link>
         </b-col>
         <b-col cols="6" xl="3" lg="3" md="4" sm="4">
           <router-link :to="ROUTES.HOME.path">
             <div class="fakeButton">
-              Acasa
+              Acasă
             </div>
           </router-link>
         </b-col>
@@ -23,7 +23,7 @@
           v-model="filter"
           type="search"
           id="filterInput"
-          placeholder="Cauta un profesor"
+          placeholder="Caută un cadru didactic"
         ></b-form-input>
         <b-input-group-prepend>
           <span class="input-group-text"

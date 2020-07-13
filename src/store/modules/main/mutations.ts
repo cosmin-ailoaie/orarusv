@@ -1,5 +1,5 @@
 import { State } from '@/models/main/state.ts';
-
+import { Faculty } from '@/models/main/interfaces';
 import { initialState } from '@/store/modules/main/state';
 import _ from 'lodash';
 
@@ -51,16 +51,13 @@ export const mutations = {
       const listSplited = payload.faculties.split('<br />');
       const list = listSplited.slice(1, listSplited.length - 1);
       const json: any = [];
-      console.log(list);
-
       list.forEach((element: any) => {
         const line = element.split(';');
-        const obj = {
+        const obj: Faculty = {
           id: line[0],
           shortName: line[1],
           name: line[2],
         };
-
         json.push(obj);
       });
       state.faculties = json;
